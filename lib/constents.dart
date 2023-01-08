@@ -1,0 +1,11 @@
+const sArrowBack = "assets/svgs/arrow-left 1.svg";
+const sTrash = "assets/svgs/Delete.svg";
+const sHide = "assets/svgs/Hide.svg";
+const sDefaultHome = "assets/svgs/Home-copy.svg";
+const sFilledHome = "assets/svgs/Home.svg";
+const sLogout = "assets/svgs/Log-out.svg";
+const sPlus = "assets/svgs/plus-circle 1.svg";
+const sFilledProfile = "assets/svgs/Profile-1.svg";
+const sDefaultProfile = "assets/svgs/Profile.svg";
+const sSettings = "assets/svgs/Setting.svg";
+const sShow = "assets/svgs/Show.svg";
