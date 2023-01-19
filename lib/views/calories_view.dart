@@ -5,8 +5,41 @@ class CaloriesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.cyan,
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("Calories"),
+          backgroundColor: Color(0xff242424),
+          shadowColor: Color(0xff0F0F0F),
+        ),
+        body: Center(
+          child: Container(
+            color: Colors.grey,
+            child: Center(
+              child: Column(
+                children: [
+                  Container(
+                    height: 100,
+                    color: Colors.blue,
+                  ),
+                  Container(
+                    height: 100,
+                    color: Colors.blue,
+                  ),
+                  Container(
+                    height: 100,
+                    color: Colors.blue,
+                  ),
+                  Container(
+                    height: 100,
+                    color: Colors.blue,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

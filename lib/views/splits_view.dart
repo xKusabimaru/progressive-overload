@@ -5,8 +5,19 @@ class SplitsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.black,
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("Splits"),
+          backgroundColor: Color(0xff242424),
+          shadowColor: Color(0xff0F0F0F),
+        ),
+        body: Center(
+          child: Container(
+            color: Colors.red
+          ),
+        ),
+      ),
     );
   }
 }
