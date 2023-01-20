@@ -14,4 +14,6 @@ const containerColor = 0xff102033;
 const strokeColor = 0xffD8B183;
 const buttonTextColor = 0xff202934;
 const mainTextColor = 0xffDEE6EC;
-const buttonColor = 0xffF1CB9D;
+const mainButtonColor = 0xffF1CB9D;
+const pickedButtonColor = 0xffDEE6EC;
+const unpickedButtonColor = 0xff202934;
