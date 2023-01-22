@@ -233,13 +233,14 @@ class _CaloriesViewState extends State<CaloriesView> {
                             ],
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: (usedHeight / 50), horizontal: 5.0),
+                            padding: EdgeInsets.only(
+                                top: (usedHeight / 50), right: 5.0, left: 5.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Flexible(
                                     child: SizedBox(
+                                        height: usedHeight / 14,
                                         width: usedHeight / 10,
                                         height: usedHeight / 16,
                                         child: TextField(
@@ -260,7 +261,6 @@ class _CaloriesViewState extends State<CaloriesView> {
                                         ))),
                                 Flexible(
                                     child: SizedBox(
-                                        height: usedHeight / 16,
                                         width: usedHeight / 10,
                                         child: TextField(
                                           onChanged: (value) {
@@ -280,7 +280,6 @@ class _CaloriesViewState extends State<CaloriesView> {
                                         ))),
                                 Flexible(
                                     child: SizedBox(
-                                        height: usedHeight / 16,
                                         width: usedHeight / 10,
                                         child: TextField(
                                           keyboardType: TextInputType.number,
@@ -308,7 +307,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                       border: Border.all(width: 1, color: Color(strokeColor)),
                     ),
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: usedHeight / 24),
                   Container(
                     height: usedHeight / 5.7,
                     decoration: BoxDecoration(
@@ -317,7 +316,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                       border: Border.all(width: 1, color: Color(strokeColor)),
                     ),
                   ),
-                  SizedBox(height: usedHeight / 36),
+                  SizedBox(height: usedHeight / 46),
                   TextButton(
                       style: TextButton.styleFrom(
                         primary: Color(buttonTextColor),
