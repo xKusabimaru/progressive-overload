@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 import 'package:progressive_overload/constents.dart';
 
@@ -19,6 +20,8 @@ class _CaloriesViewState extends State<CaloriesView> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHight = MediaQuery.of(context).size.height;
+
     return MaterialApp(
         home: Scaffold(
       appBar: AppBar(
@@ -38,7 +41,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                   Container(
                     child: Padding(
                         padding: const EdgeInsets.symmetric(
-                            vertical: 5.0, horizontal: 5.0),
+                            vertical: 14.0, horizontal: 12.0),
                         child: Column(children: [
                           Align(
                               alignment: Alignment.topLeft,
@@ -51,7 +54,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                               )),
                           Padding(
                               padding: const EdgeInsets.symmetric(
-                                  vertical: 5.0, horizontal: 5.0),
+                                  vertical: 10.0, horizontal: 5.0),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
@@ -103,7 +106,157 @@ class _CaloriesViewState extends State<CaloriesView> {
                                 ],
                               ))
                         ])),
-                    height: 100,
+                    height: (screenHight - 350) * .20,
+                    decoration: BoxDecoration(
+                      color: Color(containerColor),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      border: Border.all(width: 1, color: Color(strokeColor)),
+                    ),
+                  ),
+                  SizedBox(height: 30),
+                  Container(child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 14.0, horizontal: 12.0),
+                        child: Column(children: [
+                          Align(
+                              alignment: Alignment.topLeft,
+                              child: Text(
+                                "Gender: ",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Color(mainTextColor),
+                                ),
+                              )),
+                          Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 5.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      setState(() => _system = "Male");
+                                    },
+                                    child: Text(
+                                      'Male',
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          color: _system == "Male"
+                                              ? Color(unpickedButtonColor)
+                                              : Color(pickedButtonColor)),
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: _system == "Male"
+                                          ? Color(pickedButtonColor)
+                                          : Color(unpickedButtonColor),
+                                      fixedSize: Size(110, 45),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10))),
+                                    ),
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      setState(() => _system = "Female");
+                                    },
+                                    child: Text(
+                                      'Female',
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          color: _system == "Female"
+                                              ? Color(unpickedButtonColor)
+                                              : Color(pickedButtonColor)),
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: _system == "Female"
+                                          ? Color(pickedButtonColor)
+                                          : Color(unpickedButtonColor),
+                                      fixedSize: Size(110, 45),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10))),
+                                    ),
+                                  ),
+                                ],
+                              ))
+                        ])),
+                    height: (screenHight - 350) * .20,
+                    decoration: BoxDecoration(
+                      color: Color(containerColor),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      border: Border.all(width: 1, color: Color(strokeColor)),
+                    ),
+                  ),
+                  SizedBox(height: 30),
+                  Container(child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 14.0, horizontal: 12.0),
+                        child: Column(children: [
+                          Align(
+                              alignment: Alignment.topLeft,
+                              child: Text(
+                                "Age:",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Color(mainTextColor),
+                                ),
+                              )),
+                          Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 20.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      setState(() => _system = "Metric");
+                                    },
+                                    child: Text(
+                                      'Metric',
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          color: _system == "Metric"
+                                              ? Color(unpickedButtonColor)
+                                              : Color(pickedButtonColor)),
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: _system == "Metric"
+                                          ? Color(pickedButtonColor)
+                                          : Color(unpickedButtonColor),
+                                      fixedSize: Size(110, 45),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10))),
+                                    ),
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      setState(() => _system = "Imperial");
+                                    },
+                                    child: Text(
+                                      'Imperial',
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          color: _system == "Imperial"
+                                              ? Color(unpickedButtonColor)
+                                              : Color(pickedButtonColor)),
+                                    ),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: _system == "Imperial"
+                                          ? Color(pickedButtonColor)
+                                          : Color(unpickedButtonColor),
+                                      fixedSize: Size(110, 45),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10))),
+                                    ),
+                                  ),
+                                ],
+                              ))
+                        ])),
+                    height: (screenHight - 350) * .20,
                     decoration: BoxDecoration(
                       color: Color(containerColor),
                       borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -112,7 +265,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                   ),
                   SizedBox(height: 30),
                   Container(
-                    height: 100,
+                    height: (screenHight - 350) * .20,
                     decoration: BoxDecoration(
                       color: Color(containerColor),
                       borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -120,30 +273,12 @@ class _CaloriesViewState extends State<CaloriesView> {
                     ),
                   ),
                   SizedBox(height: 30),
-                  Container(
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: Color(containerColor),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      border: Border.all(width: 1, color: Color(strokeColor)),
-                    ),
-                  ),
-                  SizedBox(height: 30),
-                  Container(
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: Color(containerColor),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      border: Border.all(width: 1, color: Color(strokeColor)),
-                    ),
-                  ),
-                  SizedBox(height: 110),
                   TextButton(
                       style: TextButton.styleFrom(
                         primary: Color(buttonTextColor),
                         backgroundColor: Color(mainButtonColor),
                         fixedSize: Size(150, 45),
-                        // shadowColor: Colors.black,
+                       
                         shape: RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),

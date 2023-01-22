@@ -15,15 +15,15 @@ class _MainViewState extends State<MainView> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Color(0xffFFFFFF),
-        unselectedItemColor: Color(0xff707070),
-        backgroundColor: Color(0xff242424),
+        selectedItemColor: const Color(0xffFFFFFF),
+        unselectedItemColor: const Color(0xff707070),
+        backgroundColor: const Color(0xff242424),
         currentIndex: currentIndex,
         onTap: (index) {
           currentIndex = index;
           setState(() {});
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(
               Icons.task,
@@ -40,7 +40,7 @@ class _MainViewState extends State<MainView> {
       ),
       body: IndexedStack(
         index: currentIndex,
-        children: [SplitsView(), CaloriesView()],
+        children: [const SplitsView(), CaloriesView()],
       ),
     );
   }
