@@ -11,6 +11,12 @@ class CaloriesView extends StatefulWidget {
 }
 
 class _CaloriesViewState extends State<CaloriesView> {
+  final appBar = AppBar(
+    title: Text("Calories"),
+    backgroundColor: Color(0xff242424),
+    shadowColor: Color(0xff0F0F0F),
+  );
+
   String? _system;
   String? _gender;
   double? _age;
@@ -20,41 +26,43 @@ class _CaloriesViewState extends State<CaloriesView> {
 
   @override
   Widget build(BuildContext context) {
-    final screenHight = MediaQuery.of(context).size.height;
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double appBarHeight = appBar.preferredSize.height;
+    final double statusBarHeight = MediaQuery.of(context).padding.top;
+    final double usedHeight =
+        screenHeight - (2 * appBarHeight) - statusBarHeight;
 
     return MaterialApp(
         home: Scaffold(
-      appBar: AppBar(
-        title: Text("Calories"),
-        backgroundColor: Color(0xff242424),
-        shadowColor: Color(0xff0F0F0F),
-      ),
+      appBar: appBar,
       body: Center(
         child: Container(
           color: Color(backGroundColor),
           child: Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: 88.0, horizontal: 20.0),
+            padding: EdgeInsets.symmetric(
+                vertical: (usedHeight / 36), horizontal: 20.0),
             child: Center(
               child: ListView(
                 children: [
                   Container(
+                    height: usedHeight / 5.7,
                     child: Padding(
                         padding: const EdgeInsets.symmetric(
-                            vertical: 14.0, horizontal: 12.0),
+                            vertical: 10.0, horizontal: 10.0),
                         child: Column(children: [
                           Align(
                               alignment: Alignment.topLeft,
                               child: Text(
                                 "Choose a system: ",
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: usedHeight / 36,
                                   color: Color(mainTextColor),
                                 ),
                               )),
                           Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 5.0),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: (usedHeight / 316),
+                                  horizontal: 5.0),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
@@ -66,7 +74,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                                     child: Text(
                                       'Metric',
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: usedHeight / 36,
                                           color: _system == "Metric"
                                               ? Color(unpickedButtonColor)
                                               : Color(pickedButtonColor)),
@@ -75,7 +83,8 @@ class _CaloriesViewState extends State<CaloriesView> {
                                       backgroundColor: _system == "Metric"
                                           ? Color(pickedButtonColor)
                                           : Color(unpickedButtonColor),
-                                      fixedSize: Size(110, 45),
+                                      fixedSize:
+                                          Size(usedHeight / 5, usedHeight / 64),
                                       shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(10))),
@@ -88,7 +97,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                                     child: Text(
                                       'Imperial',
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: usedHeight / 36,
                                           color: _system == "Imperial"
                                               ? Color(unpickedButtonColor)
                                               : Color(pickedButtonColor)),
@@ -97,7 +106,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                                       backgroundColor: _system == "Imperial"
                                           ? Color(pickedButtonColor)
                                           : Color(unpickedButtonColor),
-                                      fixedSize: Size(110, 45),
+                                      fixedSize: Size(usedHeight / 5, usedHeight / 64),
                                       shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(10))),
@@ -106,7 +115,6 @@ class _CaloriesViewState extends State<CaloriesView> {
                                 ],
                               ))
                         ])),
-                    height: (screenHight - 350) * .20,
                     decoration: BoxDecoration(
                       color: Color(containerColor),
                       borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -114,7 +122,8 @@ class _CaloriesViewState extends State<CaloriesView> {
                     ),
                   ),
                   SizedBox(height: 30),
-                  Container(child: Padding(
+                  Container(
+                    child: Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 14.0, horizontal: 12.0),
                         child: Column(children: [
@@ -181,7 +190,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                                 ],
                               ))
                         ])),
-                    height: (screenHight - 350) * .20,
+                    height: (screenHeight - 350) * .20,
                     decoration: BoxDecoration(
                       color: Color(containerColor),
                       borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -189,7 +198,8 @@ class _CaloriesViewState extends State<CaloriesView> {
                     ),
                   ),
                   SizedBox(height: 30),
-                  Container(child: Padding(
+                  Container(
+                    child: Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 14.0, horizontal: 12.0),
                         child: Column(children: [
@@ -256,7 +266,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                                 ],
                               ))
                         ])),
-                    height: (screenHight - 350) * .20,
+                    height: (screenHeight - 350) * .20,
                     decoration: BoxDecoration(
                       color: Color(containerColor),
                       borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -265,7 +275,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                   ),
                   SizedBox(height: 30),
                   Container(
-                    height: (screenHight - 350) * .20,
+                    height: (screenHeight - 350) * .20,
                     decoration: BoxDecoration(
                       color: Color(containerColor),
                       borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -278,7 +288,6 @@ class _CaloriesViewState extends State<CaloriesView> {
                         primary: Color(buttonTextColor),
                         backgroundColor: Color(mainButtonColor),
                         fixedSize: Size(150, 45),
-                       
                         shape: RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
