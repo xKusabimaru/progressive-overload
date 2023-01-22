@@ -19,9 +19,9 @@ class _CaloriesViewState extends State<CaloriesView> {
 
   String? _system;
   String? _gender;
-  double? _age;
-  double? _hight;
-  double? _weight;
+  String? _age;
+  String? _hight;
+  String? _weight;
   int? _activity;
 
   @override
@@ -206,15 +206,98 @@ class _CaloriesViewState extends State<CaloriesView> {
                         padding: const EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 10.0),
                         child: Column(children: [
-                          Align(
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                "Age:",
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                "Age",
                                 style: TextStyle(
                                   fontSize: usedHeight / 36,
                                   color: Color(mainTextColor),
                                 ),
-                              )),
+                              ),
+                              Text(
+                                "Weight",
+                                style: TextStyle(
+                                  fontSize: usedHeight / 36,
+                                  color: Color(mainTextColor),
+                                ),
+                              ),
+                              Text(
+                                "Hight",
+                                style: TextStyle(
+                                  fontSize: usedHeight / 36,
+                                  color: Color(mainTextColor),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: (usedHeight / 50), horizontal: 5.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Flexible(
+                                    child: SizedBox(
+                                        width: usedHeight / 10,
+                                        child: TextField(
+                                          onChanged: (value) {
+                                            _age = value;
+                                          },
+                                          keyboardType: TextInputType.number,
+                                          decoration: InputDecoration(
+                                              filled: true,
+                                              fillColor: Color(mainTextColor),
+                                              enabledBorder: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(10)),
+                                                  borderSide: BorderSide(
+                                                      color: Color(
+                                                          mainButtonColor)))),
+                                        ))),
+                                Flexible(
+                                    child: SizedBox(
+                                        width: usedHeight / 10,
+                                        child: TextField(
+                                          onChanged: (value) {
+                                            _weight = value;
+                                          },
+                                          keyboardType: TextInputType.number,
+                                          decoration: InputDecoration(
+                                              filled: true,
+                                              fillColor: Color(mainTextColor),
+                                              enabledBorder: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(10)),
+                                                  borderSide: BorderSide(
+                                                      color: Color(
+                                                          mainButtonColor)))),
+                                        ))),
+                                Flexible(
+                                    child: SizedBox(
+                                        width: usedHeight / 10,
+                                        child: TextField(
+                                          keyboardType: TextInputType.number,
+                                          onChanged: (value) {
+                                            _hight = value;
+                                          },
+                                          decoration: InputDecoration(
+                                              filled: true,
+                                              fillColor: Color(mainTextColor),
+                                              enabledBorder: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(10)),
+                                                  borderSide: BorderSide(
+                                                      color: Color(
+                                                          mainButtonColor)))),
+                                        )))
+                              ],
+                            ),
+                          )
                         ])),
                     decoration: BoxDecoration(
                       color: Color(containerColor),
@@ -236,7 +319,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                       style: TextButton.styleFrom(
                         primary: Color(buttonTextColor),
                         backgroundColor: Color(mainButtonColor),
-                        fixedSize: Size(usedHeight/4, usedHeight / 12),
+                        fixedSize: Size(usedHeight / 4, usedHeight / 12),
                         shape: RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
