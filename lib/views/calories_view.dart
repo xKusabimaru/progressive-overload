@@ -242,7 +242,6 @@ class _CaloriesViewState extends State<CaloriesView> {
                                     child: SizedBox(
                                         height: usedHeight / 14,
                                         width: usedHeight / 10,
-                                        height: usedHeight / 16,
                                         child: TextField(
                                           onChanged: (value) {
                                             _age = value;
