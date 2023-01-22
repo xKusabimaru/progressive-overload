@@ -61,8 +61,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                               )),
                           Padding(
                               padding: EdgeInsets.symmetric(
-                                  vertical: (usedHeight / 316),
-                                  horizontal: 5.0),
+                                  vertical: (usedHeight / 86), horizontal: 5.0),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
@@ -84,7 +83,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                                           ? Color(pickedButtonColor)
                                           : Color(unpickedButtonColor),
                                       fixedSize:
-                                          Size(usedHeight / 5, usedHeight / 64),
+                                          Size(usedHeight / 5, usedHeight / 12),
                                       shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(10))),
@@ -106,7 +105,8 @@ class _CaloriesViewState extends State<CaloriesView> {
                                       backgroundColor: _system == "Imperial"
                                           ? Color(pickedButtonColor)
                                           : Color(unpickedButtonColor),
-                                      fixedSize: Size(usedHeight / 5, usedHeight / 64),
+                                      fixedSize:
+                                          Size(usedHeight / 5, usedHeight / 12),
                                       shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(10))),
@@ -121,7 +121,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                       border: Border.all(width: 1, color: Color(strokeColor)),
                     ),
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: usedHeight/ 24),
                   Container(
                     child: Padding(
                         padding: const EdgeInsets.symmetric(
@@ -273,7 +273,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                       border: Border.all(width: 1, color: Color(strokeColor)),
                     ),
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: usedHeight/ 15),
                   Container(
                     height: (screenHeight - 350) * .20,
                     decoration: BoxDecoration(
