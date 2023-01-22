@@ -146,18 +146,18 @@ class _CaloriesViewState extends State<CaloriesView> {
                                 children: [
                                   ElevatedButton(
                                     onPressed: () {
-                                      setState(() => _system = "Male");
+                                      setState(() => _gender = "Male");
                                     },
                                     child: Text(
                                       'Male',
                                       style: TextStyle(
                                           fontSize: usedHeight / 36,
-                                          color: _system == "Male"
+                                          color: _gender == "Male"
                                               ? Color(unpickedButtonColor)
                                               : Color(pickedButtonColor)),
                                     ),
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: _system == "Male"
+                                      backgroundColor: _gender == "Male"
                                           ? Color(pickedButtonColor)
                                           : Color(unpickedButtonColor),
                                       fixedSize:
@@ -169,18 +169,18 @@ class _CaloriesViewState extends State<CaloriesView> {
                                   ),
                                   ElevatedButton(
                                     onPressed: () {
-                                      setState(() => _system = "Female");
+                                      setState(() => _gender = "Female");
                                     },
                                     child: Text(
                                       'Female',
                                       style: TextStyle(
                                           fontSize: usedHeight / 36,
-                                          color: _system == "Female"
+                                          color: _gender == "Female"
                                               ? Color(unpickedButtonColor)
                                               : Color(pickedButtonColor)),
                                     ),
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: _system == "Female"
+                                      backgroundColor: _gender == "Female"
                                           ? Color(pickedButtonColor)
                                           : Color(unpickedButtonColor),
                                       fixedSize:
