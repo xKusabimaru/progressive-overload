@@ -241,6 +241,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                                 Flexible(
                                     child: SizedBox(
                                         width: usedHeight / 10,
+                                        height: usedHeight / 16,
                                         child: TextField(
                                           onChanged: (value) {
                                             _age = value;
@@ -259,6 +260,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                                         ))),
                                 Flexible(
                                     child: SizedBox(
+                                        height: usedHeight / 16,
                                         width: usedHeight / 10,
                                         child: TextField(
                                           onChanged: (value) {
@@ -278,6 +280,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                                         ))),
                                 Flexible(
                                     child: SizedBox(
+                                        height: usedHeight / 16,
                                         width: usedHeight / 10,
                                         child: TextField(
                                           keyboardType: TextInputType.number,
