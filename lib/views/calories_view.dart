@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_null_comparison
 
 import 'package:flutter/material.dart';
 import 'package:progressive_overload/constents.dart';
@@ -8,6 +8,13 @@ class CaloriesView extends StatefulWidget {
 
   @override
   State<CaloriesView> createState() => _CaloriesViewState();
+}
+
+bool isNumeric(String s) {
+  if (s == null) {
+    return false;
+  }
+  return double.tryParse(s) != null;
 }
 
 class _CaloriesViewState extends State<CaloriesView> {
@@ -22,7 +29,7 @@ class _CaloriesViewState extends State<CaloriesView> {
   String? _age;
   String? _hight;
   String? _weight;
-  int? _activity;
+  String? _activity;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +63,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                             Align(
                                 alignment: Alignment.topLeft,
                                 child: Text(
-                                  "Choose a system: ",
+                                  "System of Measurement",
                                   style: TextStyle(
                                     fontSize: usedHeight / 36,
                                     color: Color(mainTextColor),
@@ -135,7 +142,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                             Align(
                                 alignment: Alignment.topLeft,
                                 child: Text(
-                                  "Gender: ",
+                                  "Gender",
                                   style: TextStyle(
                                     fontSize: usedHeight / 36,
                                     color: Color(mainTextColor),
@@ -251,7 +258,9 @@ class _CaloriesViewState extends State<CaloriesView> {
                                           width: usedHeight / 10,
                                           child: TextField(
                                             onChanged: (value) {
-                                              _age = value;
+                                              setState(() {
+                                                _age = value;
+                                              });
                                             },
                                             keyboardType: TextInputType.number,
                                             decoration: InputDecoration(
@@ -272,7 +281,9 @@ class _CaloriesViewState extends State<CaloriesView> {
                                           width: usedHeight / 10,
                                           child: TextField(
                                             onChanged: (value) {
-                                              _weight = value;
+                                              setState(() {
+                                                _weight = value;
+                                              });
                                             },
                                             keyboardType: TextInputType.number,
                                             decoration: InputDecoration(
@@ -294,7 +305,9 @@ class _CaloriesViewState extends State<CaloriesView> {
                                           child: TextField(
                                             keyboardType: TextInputType.number,
                                             onChanged: (value) {
-                                              _hight = value;
+                                              setState(() {
+                                                _hight = value;
+                                              });
                                             },
                                             decoration: InputDecoration(
                                                 filled: true,
@@ -321,6 +334,63 @@ class _CaloriesViewState extends State<CaloriesView> {
                     SizedBox(height: usedHeight / 24),
                     Container(
                       height: usedHeight / 5.7,
+                      child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 10.0),
+                          child: Column(children: [
+                            Align(
+                                alignment: Alignment.topLeft,
+                                child: Text(
+                                  "Activity Level",
+                                  style: TextStyle(
+                                    fontSize: usedHeight / 36,
+                                    color: Color(mainTextColor),
+                                  ),
+                                )),
+                            Padding(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: usedHeight / 86, horizontal: 5.0),
+                                child: DropdownButton<String>(
+                                  isExpanded: true,
+                                  hint: Text(
+                                    "Pick an Activity Level",
+                                    style: TextStyle(
+                                      fontSize: usedHeight / 36,
+                                      color: Color(mainTextColor),
+                                    ),
+                                  ),
+                                  dropdownColor: Color(unpickedButtonColor),
+                                  iconEnabledColor: Color(mainTextColor),
+                                  style: TextStyle(
+                                    fontSize: usedHeight / 36,
+                                    color: Color(mainTextColor),
+                                  ),
+                                  items: <String>[
+                                    "Not Active: little or no exercise",
+                                    "Light Activity: exercise 1-3 times per week",
+                                    "Moderate Activity: exercise 4-5 times per week",
+                                    "Very Active: exercise 6-7 times per week",
+                                    "extremely Active: very intense exercise daily",
+                                  ].map((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(
+                                        value,
+                                        style: TextStyle(
+                                          fontSize: usedHeight / 48,
+                                          color: Color(mainTextColor),
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
+                                  value: _activity,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _activity = value;
+                                    });
+                                  },
+                                ))
+                          ])),
                       decoration: BoxDecoration(
                         color: Color(containerColor),
                         borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -337,7 +407,18 @@ class _CaloriesViewState extends State<CaloriesView> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          if (_system != null &&
+                              _gender != null &&
+                              isNumeric(_age!) &&
+                              isNumeric(_weight!) &&
+                              isNumeric(_hight!) &&
+                              _activity != null) {
+                            //calculate
+                          } else {
+                            //pop up a massege to fill all the fields
+                          }
+                        },
                         child: Text(
                           'Calculate',
                           style: TextStyle(
