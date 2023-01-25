@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:progressive_overload/constents.dart';
 
@@ -327,7 +329,26 @@ class _CaloriesViewState extends State<CaloriesView> {
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(
+                          builder: (context) => AlertDialog(
+                            backgroundColor: Color(backGroundColor),
+                            title: Text(
+                              "Calorie intake: ",
+                              style: TextStyle(
+                                color: Color(mainTextColor),
+                              ),
+                            ),
+                            content: Text("Ideal calories a day is : "),
+                            actions: [
+                              TextButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  child: Text("OK"))
+                            ],
+                          ),
+                          context: context,
+                        );
+                      },
                       child: Text(
                         'Calculate',
                         style: TextStyle(
