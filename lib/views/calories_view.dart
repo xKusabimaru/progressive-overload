@@ -415,8 +415,138 @@ class _CaloriesViewState extends State<CaloriesView> {
                               isNumeric(_hight!) &&
                               _activity != null) {
                             //calculate
+
+                            //Sedentary. If you get minimal or no exercise, multiply your BMR by 1.2.
+                            // Lightly active. If you exercise lightly one to three days a week, multiply your BMR by 1.375.
+                            // Moderately active. If you exercise moderately three to five days a week, multiply your BMR by 1.55.
+                            // Very active. If you engage in hard exercise six to seven days a week, multiply your BMR by 1.725.
+                            // Extra active. If you engage in very hard exercise six to seven days a week or have a physical job, multiply your BMR by 1.9.
+
+                            // For men:
+                            // BMR = 10W + 6.25H - 5A + 5
+                            double? _BMR;
+                            double? _weight2 = double.parse(_weight!);
+                            double? _hight2 = double.parse(_hight!);
+                            double? _age2 = double.parse(_age!);
+
+                            if (_gender == "Male") {
+                              _BMR = 10 * _weight2 +
+                                  6.25 * _hight2 -
+                                  5 * _age2 +
+                                  5;
+                              if (_activity ==
+                                  "Not Active: little or no exercise") {
+                                _BMR = _BMR * 1.2;
+                              } else if (_activity ==
+                                  "Light Activity: exercise 1-3 times per week") {
+                                _BMR = _BMR * 1.375;
+                              } else if (_activity ==
+                                  "Moderate Activity: exercise 4-5 times per week") {
+                                _BMR = _BMR * 1.55;
+                              } else if (_activity ==
+                                  "Very Active: exercise 6-7 times per week") {
+                                _BMR = _BMR * 1.725;
+                              } else if (_activity ==
+                                  "extremely Active: very intense exercise daily") {
+                                _BMR = _BMR * 1.9;
+                              }
+                              showDialog(
+                                builder: (context) => AlertDialog(
+                                  backgroundColor: Color(backGroundColor),
+                                  title: Text(
+                                    "Calorie intake: ",
+                                    style: TextStyle(
+                                      color: Color(mainTextColor),
+                                    ),
+                                  ),
+                                  content: Text(
+                                    "Ideal calories a day is :" +
+                                        _BMR.toString(),
+                                    style: TextStyle(
+                                      color: Color(mainTextColor),
+                                    ),
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: Text("OK"))
+                                  ],
+                                ),
+                                context: context,
+                              );
+                              // For women:
+                              // BMR = 10W + 6.25H - 5A - 161
+                            } else if (_gender == "Female") {
+                              _BMR = 10 * _weight2 +
+                                  6.25 * _hight2 -
+                                  5 * _age2 +
+                                  161;
+                              if (_activity ==
+                                  "Not Active: little or no exercise") {
+                                _BMR = _BMR * 1.2;
+                              } else if (_activity ==
+                                  "Light Activity: exercise 1-3 times per week") {
+                                _BMR = _BMR * 1.375;
+                              } else if (_activity ==
+                                  "Moderate Activity: exercise 4-5 times per week") {
+                                _BMR = _BMR * 1.55;
+                              } else if (_activity ==
+                                  "Very Active: exercise 6-7 times per week") {
+                                _BMR = _BMR * 1.725;
+                              } else if (_activity ==
+                                  "extremely Active: very intense exercise daily") {
+                                _BMR = _BMR * 1.9;
+                              }
+
+                              showDialog(
+                                builder: (context) => AlertDialog(
+                                  backgroundColor: Color(backGroundColor),
+                                  title: Text(
+                                    "Calorie intake: " + _BMR.toString(),
+                                    style: TextStyle(
+                                      color: Color(mainTextColor),
+                                    ),
+                                  ),
+                                  content: Text(
+                                    "Ideal calories a day is : ",
+                                    style: TextStyle(
+                                      color: Color(mainTextColor),
+                                    ),
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: Text("OK"))
+                                  ],
+                                ),
+                                context: context,
+                              );
+                            }
                           } else {
                             //pop up a massege to fill all the fields
+                            showDialog(
+                              builder: (context) => AlertDialog(
+                                backgroundColor: Color(backGroundColor),
+                                title: Text(
+                                  "Warning",
+                                  style: TextStyle(
+                                    color: Color(mainTextColor),
+                                  ),
+                                ),
+                                content: Text(
+                                  "FILL ALL INFORMATION",
+                                  style: TextStyle(
+                                    color: Color(mainTextColor),
+                                  ),
+                                ),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: Text("OK"))
+                                ],
+                              ),
+                              context: context,
+                            );
                           }
                         },
                         child: Text(
