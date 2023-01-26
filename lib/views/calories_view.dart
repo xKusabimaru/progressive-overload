@@ -35,7 +35,9 @@ class _CaloriesViewState extends State<CaloriesView> {
   String? _system;
   String? _gender;
   String? _age;
-  String? _hight;
+  String? _hightCM;
+  String? _hightFT;
+  String? _hightIN;
   String? _weight;
   String? _activity;
 
@@ -220,46 +222,30 @@ class _CaloriesViewState extends State<CaloriesView> {
                     ),
                     SizedBox(height: usedHeight / 32),
                     Container(
-                      height: usedHeight / 5.7,
-                      child: Padding(
+                        height: usedHeight / 5.7,
+                        decoration: BoxDecoration(
+                          color: Color(containerColor),
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          border:
+                              Border.all(width: 1, color: Color(strokeColor)),
+                        ),
+                        child: Padding(
                           padding: const EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 10.0),
-                          child: Column(children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(
-                                  "Age",
-                                  style: TextStyle(
-                                    fontSize: usedHeight / 36,
-                                    color: Color(mainTextColor),
-                                  ),
-                                ),
-                                Text(
-                                  "Weight",
-                                  style: TextStyle(
-                                    fontSize: usedHeight / 36,
-                                    color: Color(mainTextColor),
-                                  ),
-                                ),
-                                Text(
-                                  "Hight",
-                                  style: TextStyle(
-                                    fontSize: usedHeight / 36,
-                                    color: Color(mainTextColor),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  top: (usedHeight / 50),
-                                  right: 5.0,
-                                  left: 5.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                              vertical: 5.0, horizontal: 10.0),
+                          child: GridView.count(
+                            crossAxisCount: _system == "Imperial" ? 4 : 3,
+                            crossAxisSpacing: 10,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 10.0),
+                            children: [
+                              Column(
                                 children: [
+                                  Text("Age",
+                                      style: TextStyle(
+                                        fontSize: usedHeight / 36,
+                                        color: Color(mainTextColor),
+                                      )),
+                                  SizedBox(height: usedHeight / 130),
                                   Flexible(
                                       child: SizedBox(
                                           height: usedHeight / 14,
@@ -283,6 +269,16 @@ class _CaloriesViewState extends State<CaloriesView> {
                                                         color: Color(
                                                             mainButtonColor)))),
                                           ))),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Text("Weight",
+                                      style: TextStyle(
+                                        fontSize: usedHeight / 36,
+                                        color: Color(mainTextColor),
+                                      )),
+                                  SizedBox(height: usedHeight / 130),
                                   Flexible(
                                       child: SizedBox(
                                           height: usedHeight / 14,
@@ -306,39 +302,311 @@ class _CaloriesViewState extends State<CaloriesView> {
                                                         color: Color(
                                                             mainButtonColor)))),
                                           ))),
-                                  Flexible(
-                                      child: SizedBox(
-                                          height: usedHeight / 14,
-                                          width: usedHeight / 10,
-                                          child: TextField(
-                                            keyboardType: TextInputType.number,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                _hight = value;
-                                              });
-                                            },
-                                            decoration: InputDecoration(
-                                                filled: true,
-                                                fillColor: Color(mainTextColor),
-                                                enabledBorder: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                10)),
-                                                    borderSide: BorderSide(
-                                                        color: Color(
-                                                            mainButtonColor)))),
-                                          )))
                                 ],
                               ),
-                            )
-                          ])),
-                      decoration: BoxDecoration(
-                        color: Color(containerColor),
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        border: Border.all(width: 1, color: Color(strokeColor)),
-                      ),
-                    ),
+                              if (_system == "Imperial") ...[
+                                Column(
+                                  children: [
+                                    Text("Feet",
+                                        style: TextStyle(
+                                          fontSize: usedHeight / 36,
+                                          color: Color(mainTextColor),
+                                        )),
+                                    SizedBox(height: usedHeight / 130),
+                                    Flexible(
+                                        child: SizedBox(
+                                            height: usedHeight / 14,
+                                            width: usedHeight / 10,
+                                            child: TextField(
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  _hightFT = value;
+                                                });
+                                              },
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              decoration: InputDecoration(
+                                                  filled: true,
+                                                  fillColor:
+                                                      Color(mainTextColor),
+                                                  enabledBorder: OutlineInputBorder(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  10)),
+                                                      borderSide: BorderSide(
+                                                          color: Color(
+                                                              mainButtonColor)))),
+                                            ))),
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    Text("Inches",
+                                        style: TextStyle(
+                                          fontSize: usedHeight / 36,
+                                          color: Color(mainTextColor),
+                                        )),
+                                    SizedBox(height: usedHeight / 130),
+                                    Flexible(
+                                        child: SizedBox(
+                                            height: usedHeight / 14,
+                                            width: usedHeight / 10,
+                                            child: TextField(
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  _hightIN = value;
+                                                });
+                                              },
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              decoration: InputDecoration(
+                                                  filled: true,
+                                                  fillColor:
+                                                      Color(mainTextColor),
+                                                  enabledBorder: OutlineInputBorder(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  10)),
+                                                      borderSide: BorderSide(
+                                                          color: Color(
+                                                              mainButtonColor)))),
+                                            ))),
+                                  ],
+                                ),
+                              ] else ...[
+                                Column(
+                                  children: [
+                                    Text("Hight",
+                                        style: TextStyle(
+                                          fontSize: usedHeight / 36,
+                                          color: Color(mainTextColor),
+                                        )),
+                                    SizedBox(height: usedHeight / 130),
+                                    Flexible(
+                                        child: SizedBox(
+                                            height: usedHeight / 14,
+                                            width: usedHeight / 10,
+                                            child: TextField(
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  _hightCM = value;
+                                                });
+                                              },
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              decoration: InputDecoration(
+                                                  filled: true,
+                                                  fillColor:
+                                                      Color(mainTextColor),
+                                                  enabledBorder: OutlineInputBorder(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  10)),
+                                                      borderSide: BorderSide(
+                                                          color: Color(
+                                                              mainButtonColor)))),
+                                            ))),
+                                  ],
+                                ),
+                              ]
+                            ],
+                          ),
+                        )),
+                    // Container(
+                    //   height: usedHeight / 5.7,
+                    //   child: Padding(
+                    //       padding: const EdgeInsets.symmetric(
+                    //           vertical: 10.0, horizontal: 10.0),
+                    //       child: Column(children: [
+                    //         Row(
+                    //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    //           children: [
+                    //             Text(
+                    //               "Age",
+                    //               style: TextStyle(
+                    //                 fontSize: usedHeight / 36,
+                    //                 color: Color(mainTextColor),
+                    //               ),
+                    //             ),
+                    //             Text(
+                    //               "Weight",
+                    //               style: TextStyle(
+                    //                 fontSize: usedHeight / 36,
+                    //                 color: Color(mainTextColor),
+                    //               ),
+                    //             ),
+                    //             if (_system == "Imperial") ...[
+                    //               Text(
+                    //                 "Feat",
+                    //                 style: TextStyle(
+                    //                   fontSize: usedHeight / 36,
+                    //                   color: Color(mainTextColor),
+                    //                 ),
+                    //               ),
+                    //               Text(
+                    //                 "Inches",
+                    //                 style: TextStyle(
+                    //                   fontSize: usedHeight / 36,
+                    //                   color: Color(mainTextColor),
+                    //                 ),
+                    //               ),
+                    //             ] else ...[
+                    //               Text(
+                    //                 "Hight",
+                    //                 style: TextStyle(
+                    //                   fontSize: usedHeight / 36,
+                    //                   color: Color(mainTextColor),
+                    //                 ),
+                    //               ),
+                    //             ]
+                    //           ],
+                    //         ),
+                    //         Padding(
+                    //           padding: EdgeInsets.only(
+                    //               top: (usedHeight / 50),
+                    //               right: 5.0,
+                    //               left: 5.0),
+                    //           child: Row(
+                    //             mainAxisAlignment:
+                    //                 MainAxisAlignment.spaceEvenly,
+                    //             children: [
+                    //               Flexible(
+                    //                   child: SizedBox(
+                    //                       height: usedHeight / 14,
+                    //                       width: usedHeight / 10,
+                    //                       child: TextField(
+                    //                         onChanged: (value) {
+                    //                           setState(() {
+                    //                             _age = value;
+                    //                           });
+                    //                         },
+                    //                         keyboardType: TextInputType.number,
+                    //                         decoration: InputDecoration(
+                    //                             filled: true,
+                    //                             fillColor: Color(mainTextColor),
+                    //                             enabledBorder: OutlineInputBorder(
+                    //                                 borderRadius:
+                    //                                     BorderRadius.all(
+                    //                                         Radius.circular(
+                    //                                             10)),
+                    //                                 borderSide: BorderSide(
+                    //                                     color: Color(
+                    //                                         mainButtonColor)))),
+                    //                       ))),
+                    //               Flexible(
+                    //                   child: SizedBox(
+                    //                       height: usedHeight / 14,
+                    //                       width: usedHeight / 10,
+                    //                       child: TextField(
+                    //                         onChanged: (value) {
+                    //                           setState(() {
+                    //                             _weight = value;
+                    //                           });
+                    //                         },
+                    //                         keyboardType: TextInputType.number,
+                    //                         decoration: InputDecoration(
+                    //                             filled: true,
+                    //                             fillColor: Color(mainTextColor),
+                    //                             enabledBorder: OutlineInputBorder(
+                    //                                 borderRadius:
+                    //                                     BorderRadius.all(
+                    //                                         Radius.circular(
+                    //                                             10)),
+                    //                                 borderSide: BorderSide(
+                    //                                     color: Color(
+                    //                                         mainButtonColor)))),
+                    //                       ))),
+                    //               if (_system == "Imperial") ...[
+                    //                 Flexible(
+                    //                     child: SizedBox(
+                    //                         height: usedHeight / 14,
+                    //                         width: usedHeight / 10,
+                    //                         child: TextField(
+                    //                           keyboardType:
+                    //                               TextInputType.number,
+                    //                           onChanged: (value) {
+                    //                             setState(() {
+                    //                               _hightFT = value;
+                    //                             });
+                    //                           },
+                    //                           decoration: InputDecoration(
+                    //                               filled: true,
+                    //                               fillColor:
+                    //                                   Color(mainTextColor),
+                    //                               enabledBorder: OutlineInputBorder(
+                    //                                   borderRadius:
+                    //                                       BorderRadius.all(
+                    //                                           Radius.circular(
+                    //                                               10)),
+                    //                                   borderSide: BorderSide(
+                    //                                       color: Color(
+                    //                                           mainButtonColor)))),
+                    //                         ))),
+                    //                 Flexible(
+                    //                     child: SizedBox(
+                    //                         height: usedHeight / 14,
+                    //                         width: usedHeight / 10,
+                    //                         child: TextField(
+                    //                           keyboardType:
+                    //                               TextInputType.number,
+                    //                           onChanged: (value) {
+                    //                             setState(() {
+                    //                               _hightIN = value;
+                    //                             });
+                    //                           },
+                    //                           decoration: InputDecoration(
+                    //                               filled: true,
+                    //                               fillColor:
+                    //                                   Color(mainTextColor),
+                    //                               enabledBorder: OutlineInputBorder(
+                    //                                   borderRadius:
+                    //                                       BorderRadius.all(
+                    //                                           Radius.circular(
+                    //                                               10)),
+                    //                                   borderSide: BorderSide(
+                    //                                       color: Color(
+                    //                                           mainButtonColor)))),
+                    //                         )))
+                    //               ] else ...[
+                    //                 Flexible(
+                    //                     child: SizedBox(
+                    //                         height: usedHeight / 14,
+                    //                         width: usedHeight / 10,
+                    //                         child: TextField(
+                    //                           keyboardType:
+                    //                               TextInputType.number,
+                    //                           onChanged: (value) {
+                    //                             setState(() {
+                    //                               _hightCM = value;
+                    //                             });
+                    //                           },
+                    //                           decoration: InputDecoration(
+                    //                               filled: true,
+                    //                               fillColor:
+                    //                                   Color(mainTextColor),
+                    //                               enabledBorder: OutlineInputBorder(
+                    //                                   borderRadius:
+                    //                                       BorderRadius.all(
+                    //                                           Radius.circular(
+                    //                                               10)),
+                    //                                   borderSide: BorderSide(
+                    //                                       color: Color(
+                    //                                           mainButtonColor)))),
+                    //                         )))
+                    //               ]
+                    //             ],
+                    //           ),
+                    //         )
+                    //       ])),
+                    //   decoration: BoxDecoration(
+                    //     color: Color(containerColor),
+                    //     borderRadius: BorderRadius.all(Radius.circular(10)),
+                    //     border: Border.all(width: 1, color: Color(strokeColor)),
+                    //   ),
+                    // ),
                     SizedBox(height: usedHeight / 32),
                     Container(
                       height: usedHeight / 5.7,
@@ -420,7 +688,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                               _gender != null &&
                               isNumeric(_age!) &&
                               isNumeric(_weight!) &&
-                              isNumeric(_hight!) &&
+                              isNumeric(_hightCM!) &&
                               _activity != null) {
                             //calculate
 
@@ -432,14 +700,14 @@ class _CaloriesViewState extends State<CaloriesView> {
 
                             double? _BMR;
                             double? _weight2 = double.parse(_weight!);
-                            double? _hight2 = double.parse(_hight!);
+                            double? _hightCM2 = double.parse(_hightCM!);
                             double? _age2 = double.parse(_age!);
 
                             // For men:
                             // BMR = 10W + 6.25H - 5A + 5
                             if (_gender == "Male") {
                               _BMR = 10 * _weight2 +
-                                  6.25 * _hight2 -
+                                  6.25 * _hightCM2 -
                                   5 * _age2 +
                                   5;
                               if (_activity ==
@@ -463,7 +731,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                               // BMR = 10W + 6.25H - 5A - 161
                             } else {
                               _BMR = 10 * _weight2 +
-                                  6.25 * _hight2 -
+                                  6.25 * _hightCM2 -
                                   5 * _age2 -
                                   161;
                               if (_activity ==
