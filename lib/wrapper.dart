@@ -11,10 +11,10 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     
     if(isSignedIn){
-      return MainView();
+      return const MainView();
     }
     else{
-      return LandingView();
+      return const LandingView();
     }
 
   }
