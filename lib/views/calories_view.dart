@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_null_comparison
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:progressive_overload/constents.dart';
 
 class CaloriesView extends StatefulWidget {
@@ -139,7 +140,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                         border: Border.all(width: 1, color: Color(strokeColor)),
                       ),
                     ),
-                    SizedBox(height: usedHeight / 24),
+                    SizedBox(height: usedHeight / 32),
                     Container(
                       height: usedHeight / 5.7,
                       child: Padding(
@@ -217,7 +218,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                         border: Border.all(width: 1, color: Color(strokeColor)),
                       ),
                     ),
-                    SizedBox(height: usedHeight / 24),
+                    SizedBox(height: usedHeight / 32),
                     Container(
                       height: usedHeight / 5.7,
                       child: Padding(
@@ -338,7 +339,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                         border: Border.all(width: 1, color: Color(strokeColor)),
                       ),
                     ),
-                    SizedBox(height: usedHeight / 24),
+                    SizedBox(height: usedHeight / 32),
                     Container(
                       height: usedHeight / 5.7,
                       child: Padding(
@@ -484,19 +485,31 @@ class _CaloriesViewState extends State<CaloriesView> {
                             }
                             showDialog(
                               builder: (context) => AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
                                 backgroundColor: Color(backGroundColor),
                                 title: Text(
-                                  "Calorie intake: ",
+                                  "Calorie intake",
                                   style: TextStyle(
                                     color: Color(mainTextColor),
                                   ),
                                 ),
-                                content: Text(
-                                  "Ideal calories a day is :" + _BMR.toString(),
+                                content: RichText(
+                                    text: TextSpan(
                                   style: TextStyle(
                                     color: Color(mainTextColor),
                                   ),
-                                ),
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                        text: "To Maintain Your Weight:\n\n"),
+                                    TextSpan(
+                                        text: _BMR?.ceil().toString(),
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold)),
+                                    TextSpan(text: " Calories/day"),
+                                  ],
+                                )),
                                 actions: [
                                   TextButton(
                                       onPressed: () => Navigator.pop(context),
@@ -510,6 +523,9 @@ class _CaloriesViewState extends State<CaloriesView> {
 
                             showDialog(
                               builder: (context) => AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
                                 backgroundColor: Color(backGroundColor),
                                 title: Text(
                                   "Warning",
