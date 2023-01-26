@@ -422,13 +422,13 @@ class _CaloriesViewState extends State<CaloriesView> {
                             // Very active. If you engage in hard exercise six to seven days a week, multiply your BMR by 1.725.
                             // Extra active. If you engage in very hard exercise six to seven days a week or have a physical job, multiply your BMR by 1.9.
 
-                            // For men:
-                            // BMR = 10W + 6.25H - 5A + 5
                             double? _BMR;
                             double? _weight2 = double.parse(_weight!);
                             double? _hight2 = double.parse(_hight!);
                             double? _age2 = double.parse(_age!);
 
+                            // For men:
+                            // BMR = 10W + 6.25H - 5A + 5
                             if (_gender == "Male") {
                               _BMR = 10 * _weight2 +
                                   6.25 * _hight2 -
@@ -450,36 +450,13 @@ class _CaloriesViewState extends State<CaloriesView> {
                                   "extremely Active: very intense exercise daily") {
                                 _BMR = _BMR * 1.9;
                               }
-                              showDialog(
-                                builder: (context) => AlertDialog(
-                                  backgroundColor: Color(backGroundColor),
-                                  title: Text(
-                                    "Calorie intake: ",
-                                    style: TextStyle(
-                                      color: Color(mainTextColor),
-                                    ),
-                                  ),
-                                  content: Text(
-                                    "Ideal calories a day is :" +
-                                        _BMR.toString(),
-                                    style: TextStyle(
-                                      color: Color(mainTextColor),
-                                    ),
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                        onPressed: () => Navigator.pop(context),
-                                        child: Text("OK"))
-                                  ],
-                                ),
-                                context: context,
-                              );
+
                               // For women:
                               // BMR = 10W + 6.25H - 5A - 161
-                            } else if (_gender == "Female") {
+                            } else {
                               _BMR = 10 * _weight2 +
                                   6.25 * _hight2 -
-                                  5 * _age2 +
+                                  5 * _age2 -
                                   161;
                               if (_activity ==
                                   "Not Active: little or no exercise") {
@@ -497,33 +474,33 @@ class _CaloriesViewState extends State<CaloriesView> {
                                   "extremely Active: very intense exercise daily") {
                                 _BMR = _BMR * 1.9;
                               }
-
-                              showDialog(
-                                builder: (context) => AlertDialog(
-                                  backgroundColor: Color(backGroundColor),
-                                  title: Text(
-                                    "Calorie intake: " + _BMR.toString(),
-                                    style: TextStyle(
-                                      color: Color(mainTextColor),
-                                    ),
-                                  ),
-                                  content: Text(
-                                    "Ideal calories a day is : ",
-                                    style: TextStyle(
-                                      color: Color(mainTextColor),
-                                    ),
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                        onPressed: () => Navigator.pop(context),
-                                        child: Text("OK"))
-                                  ],
-                                ),
-                                context: context,
-                              );
                             }
+                            showDialog(
+                              builder: (context) => AlertDialog(
+                                backgroundColor: Color(backGroundColor),
+                                title: Text(
+                                  "Calorie intake: ",
+                                  style: TextStyle(
+                                    color: Color(mainTextColor),
+                                  ),
+                                ),
+                                content: Text(
+                                  "Ideal calories a day is :" + _BMR.toString(),
+                                  style: TextStyle(
+                                    color: Color(mainTextColor),
+                                  ),
+                                ),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: Text("OK"))
+                                ],
+                              ),
+                              context: context,
+                            );
                           } else {
                             //pop up a massege to fill all the fields
+
                             showDialog(
                               builder: (context) => AlertDialog(
                                 backgroundColor: Color(backGroundColor),
