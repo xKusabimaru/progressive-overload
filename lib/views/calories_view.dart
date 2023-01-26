@@ -492,73 +492,65 @@ class _CaloriesViewState extends State<CaloriesView> {
                                   BorderRadius.all(Radius.circular(10))),
                         ),
                         onPressed: () {
-                          if (_system != null &&
+                          double weight;
+                          double hight;
+                          double bmr;
+
+                          if (_system == "Imperial" &&
                               _gender != null &&
+                              _activity != null &&
                               isNumeric(_age!) &&
                               isNumeric(_weight!) &&
-                              isNumeric(_hightCM!) &&
-                              _activity != null) {
-                            //calculate
+                              isNumeric(_hightFT!) &&
+                              isNumeric(_hightIN!)) {
+                            weight = double.parse(_weight!) / 2.205;
+                            hight = double.parse(_hightFT!) * 30.48 +
+                                double.parse(_hightIN!) * 2.54;
 
-                            //Sedentary. If you get minimal or no exercise, multiply your BMR by 1.2.
-                            // Lightly active. If you exercise lightly one to three days a week, multiply your BMR by 1.375.
-                            // Moderately active. If you exercise moderately three to five days a week, multiply your BMR by 1.55.
-                            // Very active. If you engage in hard exercise six to seven days a week, multiply your BMR by 1.725.
-                            // Extra active. If you engage in very hard exercise six to seven days a week or have a physical job, multiply your BMR by 1.9.
-
-                            double? _BMR;
-                            double? _weight2 = double.parse(_weight!);
-                            double? _hightCM2 = double.parse(_hightCM!);
-                            double? _age2 = double.parse(_age!);
-
-                            // For men:
-                            // BMR = 10W + 6.25H - 5A + 5
                             if (_gender == "Male") {
-                              _BMR = 10 * _weight2 +
-                                  6.25 * _hightCM2 -
-                                  5 * _age2 +
+                              bmr = 10 * weight +
+                                  6.25 * hight -
+                                  5 * double.parse(_age!) +
                                   5;
                               if (_activity ==
                                   "Not Active: little or no exercise") {
-                                _BMR = _BMR * 1.2;
+                                bmr = bmr * 1.2;
                               } else if (_activity ==
                                   "Light Activity: exercise 1-3 times per week") {
-                                _BMR = _BMR * 1.375;
+                                bmr = bmr * 1.375;
                               } else if (_activity ==
                                   "Moderate Activity: exercise 4-5 times per week") {
-                                _BMR = _BMR * 1.55;
+                                bmr = bmr * 1.55;
                               } else if (_activity ==
                                   "Very Active: exercise 6-7 times per week") {
-                                _BMR = _BMR * 1.725;
+                                bmr = bmr * 1.725;
                               } else if (_activity ==
                                   "extremely Active: very intense exercise daily") {
-                                _BMR = _BMR * 1.9;
+                                bmr = bmr * 1.9;
                               }
-
-                              // For women:
-                              // BMR = 10W + 6.25H - 5A - 161
                             } else {
-                              _BMR = 10 * _weight2 +
-                                  6.25 * _hightCM2 -
-                                  5 * _age2 -
+                              bmr = 10 * weight +
+                                  6.25 * hight -
+                                  5 * double.parse(_age!) -
                                   161;
                               if (_activity ==
                                   "Not Active: little or no exercise") {
-                                _BMR = _BMR * 1.2;
+                                bmr = bmr * 1.2;
                               } else if (_activity ==
                                   "Light Activity: exercise 1-3 times per week") {
-                                _BMR = _BMR * 1.375;
+                                bmr = bmr * 1.375;
                               } else if (_activity ==
                                   "Moderate Activity: exercise 4-5 times per week") {
-                                _BMR = _BMR * 1.55;
+                                bmr = bmr * 1.55;
                               } else if (_activity ==
                                   "Very Active: exercise 6-7 times per week") {
-                                _BMR = _BMR * 1.725;
+                                bmr = bmr * 1.725;
                               } else if (_activity ==
                                   "extremely Active: very intense exercise daily") {
-                                _BMR = _BMR * 1.9;
+                                bmr = bmr * 1.9;
                               }
                             }
+
                             showDialog(
                               builder: (context) => AlertDialog(
                                 shape: RoundedRectangleBorder(
@@ -580,7 +572,95 @@ class _CaloriesViewState extends State<CaloriesView> {
                                     TextSpan(
                                         text: "To Maintain Your Weight:\n\n"),
                                     TextSpan(
-                                        text: _BMR?.ceil().toString(),
+                                        text: bmr.ceil().toString(),
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold)),
+                                    TextSpan(text: " Calories/day"),
+                                  ],
+                                )),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: Text("OK"))
+                                ],
+                              ),
+                              context: context,
+                            );
+                          } else if (_system == "Metric" &&
+                              _gender != null &&
+                              _activity != null &&
+                              isNumeric(_age!) &&
+                              isNumeric(_weight!) &&
+                              isNumeric(_hightCM!)) {
+                            weight = double.parse(_weight!);
+                            hight = double.parse(_hightCM!);
+
+                            if (_gender == "Male") {
+                              bmr = 10 * weight +
+                                  6.25 * hight -
+                                  5 * double.parse(_age!) +
+                                  5;
+                              if (_activity ==
+                                  "Not Active: little or no exercise") {
+                                bmr = bmr * 1.2;
+                              } else if (_activity ==
+                                  "Light Activity: exercise 1-3 times per week") {
+                                bmr = bmr * 1.375;
+                              } else if (_activity ==
+                                  "Moderate Activity: exercise 4-5 times per week") {
+                                bmr = bmr * 1.55;
+                              } else if (_activity ==
+                                  "Very Active: exercise 6-7 times per week") {
+                                bmr = bmr * 1.725;
+                              } else if (_activity ==
+                                  "extremely Active: very intense exercise daily") {
+                                bmr = bmr * 1.9;
+                              }
+                            } else {
+                              bmr = 10 * weight +
+                                  6.25 * hight -
+                                  5 * double.parse(_age!) -
+                                  161;
+                              if (_activity ==
+                                  "Not Active: little or no exercise") {
+                                bmr = bmr * 1.2;
+                              } else if (_activity ==
+                                  "Light Activity: exercise 1-3 times per week") {
+                                bmr = bmr * 1.375;
+                              } else if (_activity ==
+                                  "Moderate Activity: exercise 4-5 times per week") {
+                                bmr = bmr * 1.55;
+                              } else if (_activity ==
+                                  "Very Active: exercise 6-7 times per week") {
+                                bmr = bmr * 1.725;
+                              } else if (_activity ==
+                                  "extremely Active: very intense exercise daily") {
+                                bmr = bmr * 1.9;
+                              }
+                            }
+
+                            showDialog(
+                              builder: (context) => AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                backgroundColor: Color(backGroundColor),
+                                title: Text(
+                                  "Calorie intake",
+                                  style: TextStyle(
+                                    color: Color(mainTextColor),
+                                  ),
+                                ),
+                                content: RichText(
+                                    text: TextSpan(
+                                  style: TextStyle(
+                                    color: Color(mainTextColor),
+                                  ),
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                        text: "To Maintain Your Weight:\n\n"),
+                                    TextSpan(
+                                        text: bmr.ceil().toString(),
                                         style: const TextStyle(
                                             fontWeight: FontWeight.bold)),
                                     TextSpan(text: " Calories/day"),
@@ -595,8 +675,6 @@ class _CaloriesViewState extends State<CaloriesView> {
                               context: context,
                             );
                           } else {
-                            //pop up a massege to fill all the fields
-
                             showDialog(
                               builder: (context) => AlertDialog(
                                 shape: RoundedRectangleBorder(
