@@ -5,17 +5,14 @@ import 'package:progressive_overload/views/main_view.dart';
 class Wrapper extends StatelessWidget {
   Wrapper({Key? key}) : super(key: key);
 
-  bool isSignedIn = true;
+  bool isSignedIn = false;
 
   @override
   Widget build(BuildContext context) {
-    
-    if(isSignedIn){
+    if (isSignedIn) {
       return const MainView();
-    }
-    else{
+    } else {
       return const LandingView();
     }
-
   }
 }

@@ -22,6 +22,7 @@ class _CaloriesViewState extends State<CaloriesView> {
     title: Text("Calories"),
     backgroundColor: Color(0xff242424),
     shadowColor: Color(0xff0F0F0F),
+    centerTitle: false,
   );
 
   String? _system;
@@ -132,7 +133,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                         border: Border.all(width: 1, color: Color(strokeColor)),
                       ),
                     ),
-                    SizedBox(height: 30),
+                    SizedBox(height: usedHeight / 24),
                     Container(
                       height: usedHeight / 5.7,
                       child: Padding(
