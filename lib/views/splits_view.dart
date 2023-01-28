@@ -13,9 +13,7 @@ class SplitsView extends StatelessWidget {
           shadowColor: const Color(0xff0F0F0F),
         ),
         body: Center(
-          child: Container(
-            color: Colors.red
-          ),
+          child: Container(color: Colors.red),
         ),
       ),
     );
