@@ -5,30 +5,39 @@ class LandingView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+
+    final double statusBarHeight = MediaQuery.of(context).padding.top;
+    final double usedHeight = screenHeight - statusBarHeight;
+    final double usedWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.grey,
+      backgroundColor: Color(0xff0F0F0F), // backgroundColor
       body: SafeArea(
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment:
+                MainAxisAlignment.center, //the box for all page contents
             children: [
-              SizedBox(height: 25),
-              // hello
+              SizedBox(height: usedHeight / 244),
+              // welcom to the user
               Text(
                 'Track your progress and reach your fitness goals',
                 style: TextStyle(
+                  color: Color.fromARGB(255, 255, 255, 255),
                   fontWeight: FontWeight.bold,
-                  fontSize: 17,
+                  fontSize: usedHeight / 50,
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: usedHeight / 50),
               Text(
                 'welcome back',
                 style: TextStyle(
-                  fontSize: 24,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: usedHeight / 32, //gg
                 ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: usedHeight / 55),
 
               // email
               Padding(
@@ -37,7 +46,7 @@ class LandingView extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.grey[200],
                     border: Border.all(color: Colors.white),
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(usedHeight / 70),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 20.0),
@@ -53,7 +62,7 @@ class LandingView extends StatelessWidget {
               //pass
 
               ,
-              SizedBox(height: 10),
+              SizedBox(height: usedHeight / 80),
 
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -61,7 +70,7 @@ class LandingView extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Colors.grey[200],
                     border: Border.all(color: Colors.white),
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(usedHeight / 70),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 20.0),
@@ -75,7 +84,7 @@ class LandingView extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: usedHeight / 80),
 
               //sign in button
               Padding(
@@ -84,20 +93,20 @@ class LandingView extends StatelessWidget {
                   padding: EdgeInsets.all(20),
                   decoration: BoxDecoration(
                       color: Colors.lightBlue,
-                      borderRadius: BorderRadius.circular(12)),
+                      borderRadius: BorderRadius.circular(usedHeight / 70)),
                   child: Center(
                     child: Text(
                       'Sign In',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                        fontSize: usedHeight / 51,
                       ),
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: usedHeight / 75),
 
               // register
               Row(
@@ -106,7 +115,7 @@ class LandingView extends StatelessWidget {
                   Text(
                     'Not a member ?',
                     style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
