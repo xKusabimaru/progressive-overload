@@ -17,3 +17,5 @@ const mainTextColor = 0xffDEE6EC;
 const mainButtonColor = 0xffF1CB9D;
 const pickedButtonColor = 0xffDEE6EC;
 const unpickedButtonColor = 0xff202934;
+const sSupabaseUrl = "https://boaqhokemdxpzmxliydy.supabase.co";
+const sToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJvYXFob2tlbWR4cHpteGxpeWR5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzQ3NjAwNzIsImV4cCI6MTk5MDMzNjA3Mn0.7YlfKWITe_4mijU-Wm_efxUm1TgdO6-DYg_Vy5XQpQQ";

@@ -1,42 +1,59 @@
-import 'package:flutter/material.dart';
+import 'package:progressive_overload/constents.dart';
 import 'package:supabase/supabase.dart';
 
-const String supabaseUrl = "https://boaqhokemdxpzmxliydy.supabase.co";
-const String token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJvYXFob2tlbWR4cHpteGxpeWR5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzQ3NjAwNzIsImV4cCI6MTk5MDMzNjA3Mn0.7YlfKWITe_4mijU-Wm_efxUm1TgdO6-DYg_Vy5XQpQQ";
+const String supabaseUrl = sSupabaseUrl;
+const String token = sToken;
 
 class AuthService {
-  final client = SupabaseClient(supabaseUrl, token);
+  final supabase = SupabaseClient(supabaseUrl, token);
 
-  Future<void> signUp(String email, String password) async {
-    final res = await client.auth.signUp(email: email, password: password);
+  signUp(String email, String password) async {
+    final AuthResponse res =
+        await supabase.auth.signUp(email: email, password: password);
+
+    final Session? session = res.session;
+    final User? user = res.user;
   }
 
-  Future<void> signIn(String email, String password) async {
-    final res = await client.auth.signInWithPassword(email: email, password: password);
+  signIn(String email, String password) async {
+    final AuthResponse res = await supabase.auth
+        .signInWithPassword(email: email, password: password);
+
+    final Session? session = res.session;
+    final User? user = res.user;
   }
 
-  Future<void> signOut() async {
-    final res = await client.auth.signOut();
+  signOut() async {
+    await supabase.auth.signOut();
   }
 
-  Future<void> getSession() async {
-    final Session? session = client.auth.currentSession;
+  getSession() async {
+    final Session? session = supabase.auth.currentSession;
+    return session;
   }
 
-  //todo later
-  Future<void> insertSplit(name) async {
-    await client.from('Splits').insert(name);
+  getUser() async {
+    final User? user = supabase.auth.currentUser;
+    return user;
   }
 
-  //todo later
-  Future<void> insertDay() async {
-    await client.from('Days').insert(DateTime.now());
+  updateEmail(email) async {
+    final UserResponse res = await supabase.auth.updateUser(
+      UserAttributes(
+        email: email,
+      ),
+    );
+
+    final User? updatedUser = res.user;
   }
 
-  //todo later
-  Future<void> insertExercise() async {
-    await client.from('Exercises').insert("");
-  }
+  updatePassword(password) async {
+    final UserResponse res = await supabase.auth.updateUser(
+      UserAttributes(
+        password: password,
+      ),
+    );
 
+    final User? updatedUser = res.user;
+  }
 }
