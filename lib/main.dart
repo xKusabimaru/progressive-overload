@@ -1,25 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:progressive_overload/constents.dart';
 import 'package:progressive_overload/wrapper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  await Supabase.initialize(
-    url: sSupabaseUrl,
-    anonKey: sToken,
-  );
-
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: Wrapper());
+    return FutureBuilder(
+      future: Supabase.initialize(
+        url: sSupabaseUrl,
+        anonKey: sToken,
+      ),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Container();
+        }
+
+        if (snapshot.connectionState == ConnectionState.done) {
+          return MaterialApp(
+            home: Wrapper(),
+          );
+        }
+
+        return Container();
+      },
+    );
   }
 }

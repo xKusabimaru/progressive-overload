@@ -5,23 +5,22 @@ import 'package:supabase/supabase.dart';
 const String supabaseUrl = sSupabaseUrl;
 const String token = sToken;
 
-class DataService {
-  final supabase = SupabaseClient(supabaseUrl, token);
+final supabase = SupabaseClient(supabaseUrl, token);
 
-  insertSplit(name) async {
-    var user_id = AuthService().getUser();
-    await supabase.from('Splits').insert({"sname": name, "user_id": user_id});
+class DataService {
+  static insertSplit(name) async {
+    await supabase
+        .from('Splits')
+        .insert({"sname": name, "user_id": await AuthService.getUserId()});
   }
 
-  insertDay() async {
-    int split_id = 0; //todo later
+  static insertDay(split_id) async {
     await supabase
         .from('Days')
         .insert({"date": DateTime.now(), "split_id": split_id});
   }
 
-  insertExercise(name, weight, note, sets) async {
-    int day_id = 0; //todo later
+  static insertExercise(name, weight, note, sets, day_id) async {
     await supabase.from('Exercises').insert({
       "ename": name,
       "weight": weight,
@@ -31,40 +30,40 @@ class DataService {
     });
   }
 
-  deleteSplit(split_id) async {
+  static deleteSplit(split_id) async {
     await supabase.from('Splits').delete().match({'split_id': split_id});
   }
 
-  deleteDay(day_id) async {
+  static deleteDay(day_id) async {
     await supabase.from('Days').delete().match({'day_id': day_id});
   }
 
-  deleteExercise(exercise_id) async {
+  static deleteExercise(exercise_id) async {
     await supabase
         .from('Exercises')
         .delete()
         .match({'exercise_id': exercise_id});
   }
 
-  hideSplit(split_id) async {
+  static hideSplit(split_id) async {
     await supabase
         .from('Splits')
         .update({'isHidden': true}).match({'split_id': split_id});
   }
 
-  unhideSplit(split_id) async {
+  static unhideSplit(split_id) async {
     await supabase
         .from('Splits')
         .update({'isHidden': false}).match({'split_id': split_id});
   }
 
-  updateSplit(split_id, name) async {
+  static updateSplit(split_id, name) async {
     await supabase
         .from('Splits')
         .update({'sname': name}).match({'split_id': split_id});
   }
 
-  updateExercise(exercise_id, name, weight, note, sets) async {
+  static updateExercise(exercise_id, name, weight, note, sets) async {
     await supabase.from('Exercises').update({
       'ename': name,
       'weight': weight,
@@ -73,43 +72,43 @@ class DataService {
     }).match({'exercise_id': exercise_id});
   }
 
-  getAllUnhiddenSplits() async {
-    var user_id = AuthService().getUser();
-
+  static getAllUnhiddenSplits() async {
     final splits = await supabase
         .from('Splits')
-        .select('sname')
-        .match({"user_id": user_id, "isHidden": false}).order('split_id',
-            ascending: false);
+        .select('sname, split_id')
+        .match({
+      "user_id": await AuthService.getUserId(),
+      "isHidden": false
+    }).order('split_id', ascending: false);
 
     return splits;
   }
 
-  getAllhiddenSplits() async {
-    var user_id = AuthService().getUser();
-
+  static getAllhiddenSplits() async {
     final splits = await supabase
         .from('Splits')
-        .select('sname')
-        .match({"user_id": user_id, "isHidden": true}).order('split_id',
-            ascending: false);
+        .select('sname, split_id')
+        .match({
+      "user_id": await AuthService.getUserId(),
+      "isHidden": true
+    }).order('split_id', ascending: false);
 
     return splits;
   }
 
-  getAllDays(split_id) async {
+  static getAllDays(split_id) async {
     final days = await supabase
         .from('Days')
-        .select('date')
+        .select('date, day_id')
         .match({"split_id": split_id}).order('day_id', ascending: false);
 
     return days;
   }
 
-  getAllExercises(day_id) async {
+  static getAllExercises(day_id) async {
     final exercises = await supabase
         .from('Exercises')
-        .select('ename, weight, note, sets')
+        .select('ename, weight, note, sets, exercise_id')
         .match({"day_id": day_id}).order('exercise_id', ascending: false);
 
     return exercises;

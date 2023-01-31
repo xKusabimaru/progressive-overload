@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:progressive_overload/constents.dart';
 import 'package:progressive_overload/services/auth_service.dart';
+import 'package:progressive_overload/wrapper.dart';
 
 class TestView extends StatefulWidget {
   const TestView({Key? key}) : super(key: key);
@@ -54,12 +55,32 @@ class _TestView extends State<TestView> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  AuthService().signUp(email!, password!);
+                  if (await AuthService.signIn(email!, password!)) {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Wrapper(),
+                        ));
+                  }
                 },
                 child: Text(
-                  'submit',
+                  'signIn',
                 ),
-              )
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  if (await AuthService.signUp(email!, password!)) {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Wrapper(),
+                        ));
+                  }
+                },
+                child: Text(
+                  'signUp',
+                ),
+              ),
             ],
           ),
         ),

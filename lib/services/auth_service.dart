@@ -1,43 +1,84 @@
 import 'package:progressive_overload/constents.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase/supabase.dart';
 
 const String supabaseUrl = sSupabaseUrl;
 const String token = sToken;
 
+final supabase = SupabaseClient(supabaseUrl, token);
+
 class AuthService {
-  final supabase = SupabaseClient(supabaseUrl, token);
-
-  signUp(String email, String password) async {
-    final AuthResponse res =
-        await supabase.auth.signUp(email: email, password: password);
-
-    final Session? session = res.session;
-    final User? user = res.user;
+  static setSharedPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('id', getUser().id);
   }
 
-  signIn(String email, String password) async {
-    final AuthResponse res = await supabase.auth
-        .signInWithPassword(email: email, password: password);
-
-    final Session? session = res.session;
-    final User? user = res.user;
+  static removeSharedPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('id');
   }
 
-  signOut() async {
+  static signUp(String email, String password) async {
+    try {
+      final AuthResponse res =
+          await supabase.auth.signUp(email: email, password: password);
+
+      // final Session? session = res.session;
+      // final User? user = res.user;
+
+      setSharedPreferences();
+
+      return true;
+    } catch (err) {
+      return false;
+    }
+  }
+
+  static signIn(String email, String password) async {
+    try {
+      final AuthResponse res = await supabase.auth
+          .signInWithPassword(email: email, password: password);
+
+      // final Session? session = res.session;
+      // final User? user = res.user;
+
+      setSharedPreferences();
+
+      return true;
+    } catch (err) {
+      return false;
+    }
+  }
+
+  static signOut() async {
     await supabase.auth.signOut();
+    removeSharedPreferences();
   }
 
-  getSession() async {
-    final Session? session = supabase.auth.currentSession;
-    return session;
+  static getUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('id');
   }
 
-  getUser() async {
-    final User? user = supabase.auth.currentUser;
-    return user;
+  static isSignedIn() async {
+    if (await getUserId() != null) {
+      return true;
+    }
+    return false;
   }
 
-  updateEmail(email) async {
+  // wierd reaction from these two functions
+  static getSession() {
+    return supabase.auth.currentSession;
+  }
+
+  static getUser() {
+    return supabase.auth.currentUser;
+  }
+  //
+
+  // untested functions
+  static updateEmail(email) async {
     final UserResponse res = await supabase.auth.updateUser(
       UserAttributes(
         email: email,
@@ -47,7 +88,7 @@ class AuthService {
     final User? updatedUser = res.user;
   }
 
-  updatePassword(password) async {
+  static updatePassword(password) async {
     final UserResponse res = await supabase.auth.updateUser(
       UserAttributes(
         password: password,
@@ -56,4 +97,5 @@ class AuthService {
 
     final User? updatedUser = res.user;
   }
+  //
 }
