@@ -1,42 +1,101 @@
-import 'package:flutter/material.dart';
+import 'package:progressive_overload/constents.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase/supabase.dart';
 
-const String supabaseUrl = "https://boaqhokemdxpzmxliydy.supabase.co";
-const String token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJvYXFob2tlbWR4cHpteGxpeWR5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzQ3NjAwNzIsImV4cCI6MTk5MDMzNjA3Mn0.7YlfKWITe_4mijU-Wm_efxUm1TgdO6-DYg_Vy5XQpQQ";
+const String supabaseUrl = sSupabaseUrl;
+const String token = sToken;
+
+final supabase = SupabaseClient(supabaseUrl, token);
 
 class AuthService {
-  final client = SupabaseClient(supabaseUrl, token);
-
-  Future<void> signUp(String email, String password) async {
-    final res = await client.auth.signUp(email: email, password: password);
+  static setSharedPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('id', getUser().id);
   }
 
-  Future<void> signIn(String email, String password) async {
-    final res = await client.auth.signInWithPassword(email: email, password: password);
+  static removeSharedPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('id');
   }
 
-  Future<void> signOut() async {
-    final res = await client.auth.signOut();
+  static signUp(String email, String password) async {
+    try {
+      final AuthResponse res =
+          await supabase.auth.signUp(email: email, password: password);
+
+      // final Session? session = res.session;
+      // final User? user = res.user;
+
+      setSharedPreferences();
+
+      return true;
+    } catch (err) {
+      return false;
+    }
   }
 
-  Future<void> getSession() async {
-    final Session? session = client.auth.currentSession;
+  static signIn(String email, String password) async {
+    try {
+      final AuthResponse res = await supabase.auth
+          .signInWithPassword(email: email, password: password);
+
+      // final Session? session = res.session;
+      // final User? user = res.user;
+
+      setSharedPreferences();
+
+      return true;
+    } catch (err) {
+      return false;
+    }
   }
 
-  //todo later
-  Future<void> insertSplit(name) async {
-    await client.from('Splits').insert(name);
+  static signOut() async {
+    await supabase.auth.signOut();
+    removeSharedPreferences();
   }
 
-  //todo later
-  Future<void> insertDay() async {
-    await client.from('Days').insert(DateTime.now());
+  static getUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('id');
   }
 
-  //todo later
-  Future<void> insertExercise() async {
-    await client.from('Exercises').insert("");
+  static isSignedIn() async {
+    if (await getUserId() != null) {
+      return true;
+    }
+    return false;
   }
 
+  // wierd reaction from these two functions
+  static getSession() {
+    return supabase.auth.currentSession;
+  }
+
+  static getUser() {
+    return supabase.auth.currentUser;
+  }
+  //
+
+  // untested functions
+  static updateEmail(email) async {
+    final UserResponse res = await supabase.auth.updateUser(
+      UserAttributes(
+        email: email,
+      ),
+    );
+
+    final User? updatedUser = res.user;
+  }
+
+  static updatePassword(password) async {
+    final UserResponse res = await supabase.auth.updateUser(
+      UserAttributes(
+        password: password,
+      ),
+    );
+
+    final User? updatedUser = res.user;
+  }
+  //
 }

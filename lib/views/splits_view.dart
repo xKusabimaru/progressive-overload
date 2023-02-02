@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:progressive_overload/services/auth_service.dart';
+import 'package:progressive_overload/services/data_service.dart';
+import 'package:progressive_overload/wrapper.dart';
 
 class SplitsView extends StatelessWidget {
   const SplitsView({Key? key}) : super(key: key);
@@ -13,7 +16,9 @@ class SplitsView extends StatelessWidget {
           shadowColor: const Color(0xff0F0F0F),
         ),
         body: Center(
-          child: Container(color: Colors.red),
+          child: Container(
+            color: Colors.red
+          ),
         ),
       ),
     );
