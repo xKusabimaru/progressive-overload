@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:progressive_overload/constents.dart';
 import 'package:progressive_overload/views/calories_view.dart';
 import 'package:progressive_overload/views/splits_view.dart';
 
@@ -14,30 +15,34 @@ class _MainViewState extends State<MainView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: const Color(0xffFFFFFF),
-        unselectedItemColor: const Color(0xff707070),
-        backgroundColor: const Color(0xff242424),
-        currentIndex: currentIndex,
-        onTap: (index) {
-          currentIndex = index;
-          setState(() {});
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.task,
-            ),
-            label: 'Splits',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.calculate,
-            ),
-            label: 'Calories',
-          )
-        ],
-      ),
+      bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+              border: Border(
+                  top: BorderSide(width: 1.0, color: Color(mainButtonColor)))),
+          child: BottomNavigationBar(
+            selectedItemColor: const Color(0xffFFFFFF),
+            unselectedItemColor: const Color(0xff707070),
+            backgroundColor: const Color(backGroundColor),
+            currentIndex: currentIndex,
+            onTap: (index) {
+              currentIndex = index;
+              setState(() {});
+            },
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.task,
+                ),
+                label: 'Splits',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.calculate,
+                ),
+                label: 'Calories',
+              )
+            ],
+          )),
       body: IndexedStack(
         index: currentIndex,
         children: [const SplitsView(), CaloriesView()],

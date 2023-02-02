@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_null_comparison
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:progressive_overload/constents.dart';
+import 'package:progressive_overload/views/main_drawer.dart';
 
 class CaloriesView extends StatefulWidget {
   const CaloriesView({Key? key}) : super(key: key);
@@ -19,15 +21,24 @@ bool isNumeric(String s) {
 
 class _CaloriesViewState extends State<CaloriesView> {
   final appBar = AppBar(
-    title: Text("Calories"),
-    backgroundColor: Color(0xff242424),
-    shadowColor: Color(0xff0F0F0F),
+    title: Text(
+      "Calories",
+      style: TextStyle(
+        fontSize: 25,
+        color: Color(mainTextColor),
+      ),
+    ),
+    backgroundColor: Color(backGroundColor),
+    shadowColor: Colors.black,
+    shape: Border(bottom: BorderSide(color: Color(mainButtonColor), width: 1)),
   );
 
   String? _system;
   String? _gender;
   String? _age;
-  String? _hight;
+  String? _hightCM;
+  String? _hightFT;
+  String? _hightIN;
   String? _weight;
   String? _activity;
 
@@ -43,6 +54,7 @@ class _CaloriesViewState extends State<CaloriesView> {
     return MaterialApp(
         home: Scaffold(
       appBar: appBar,
+      endDrawer: const MainDrawer(),
       body: Center(
         child: Container(
           color: Color(backGroundColor),
@@ -132,7 +144,7 @@ class _CaloriesViewState extends State<CaloriesView> {
                         border: Border.all(width: 1, color: Color(strokeColor)),
                       ),
                     ),
-                    SizedBox(height: 30),
+                    SizedBox(height: usedHeight / 32),
                     Container(
                       height: usedHeight / 5.7,
                       child: Padding(
@@ -210,52 +222,36 @@ class _CaloriesViewState extends State<CaloriesView> {
                         border: Border.all(width: 1, color: Color(strokeColor)),
                       ),
                     ),
-                    SizedBox(height: usedHeight / 24),
+                    SizedBox(height: usedHeight / 32),
                     Container(
-                      height: usedHeight / 5.7,
-                      child: Padding(
+                        height: usedHeight / 5.7,
+                        decoration: BoxDecoration(
+                          color: Color(containerColor),
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          border:
+                              Border.all(width: 1, color: Color(strokeColor)),
+                        ),
+                        child: Padding(
                           padding: const EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 10.0),
-                          child: Column(children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(
-                                  "Age",
-                                  style: TextStyle(
-                                    fontSize: usedHeight / 36,
-                                    color: Color(mainTextColor),
-                                  ),
-                                ),
-                                Text(
-                                  "Weight",
-                                  style: TextStyle(
-                                    fontSize: usedHeight / 36,
-                                    color: Color(mainTextColor),
-                                  ),
-                                ),
-                                Text(
-                                  "Hight",
-                                  style: TextStyle(
-                                    fontSize: usedHeight / 36,
-                                    color: Color(mainTextColor),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  top: (usedHeight / 50),
-                                  right: 5.0,
-                                  left: 5.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                              vertical: 5.0, horizontal: 10.0),
+                          child: GridView.count(
+                            crossAxisCount: _system == "Imperial" ? 4 : 3,
+                            crossAxisSpacing: 10,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 10.0),
+                            children: [
+                              Column(
                                 children: [
+                                  Text("Age",
+                                      style: TextStyle(
+                                        fontSize: usedHeight / 36,
+                                        color: Color(mainTextColor),
+                                      )),
+                                  SizedBox(height: usedHeight / 130),
                                   Flexible(
                                       child: SizedBox(
                                           height: usedHeight / 14,
-                                          width: usedHeight / 10,
+                                          width: usedWidth / 6,
                                           child: TextField(
                                             onChanged: (value) {
                                               setState(() {
@@ -275,10 +271,20 @@ class _CaloriesViewState extends State<CaloriesView> {
                                                         color: Color(
                                                             mainButtonColor)))),
                                           ))),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Text("Weight",
+                                      style: TextStyle(
+                                        fontSize: usedHeight / 36,
+                                        color: Color(mainTextColor),
+                                      )),
+                                  SizedBox(height: usedHeight / 130),
                                   Flexible(
                                       child: SizedBox(
                                           height: usedHeight / 14,
-                                          width: usedHeight / 10,
+                                          width: usedWidth / 6,
                                           child: TextField(
                                             onChanged: (value) {
                                               setState(() {
@@ -298,40 +304,120 @@ class _CaloriesViewState extends State<CaloriesView> {
                                                         color: Color(
                                                             mainButtonColor)))),
                                           ))),
-                                  Flexible(
-                                      child: SizedBox(
-                                          height: usedHeight / 14,
-                                          width: usedHeight / 10,
-                                          child: TextField(
-                                            keyboardType: TextInputType.number,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                _hight = value;
-                                              });
-                                            },
-                                            decoration: InputDecoration(
-                                                filled: true,
-                                                fillColor: Color(mainTextColor),
-                                                enabledBorder: OutlineInputBorder(
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                10)),
-                                                    borderSide: BorderSide(
-                                                        color: Color(
-                                                            mainButtonColor)))),
-                                          )))
                                 ],
                               ),
-                            )
-                          ])),
-                      decoration: BoxDecoration(
-                        color: Color(containerColor),
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        border: Border.all(width: 1, color: Color(strokeColor)),
-                      ),
-                    ),
-                    SizedBox(height: usedHeight / 24),
+                              if (_system == "Imperial") ...[
+                                Column(
+                                  children: [
+                                    Text("Feet",
+                                        style: TextStyle(
+                                          fontSize: usedHeight / 36,
+                                          color: Color(mainTextColor),
+                                        )),
+                                    SizedBox(height: usedHeight / 130),
+                                    Flexible(
+                                        child: SizedBox(
+                                            height: usedHeight / 14,
+                                            width: usedWidth / 6,
+                                            child: TextField(
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  _hightFT = value;
+                                                });
+                                              },
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              decoration: InputDecoration(
+                                                  filled: true,
+                                                  fillColor:
+                                                      Color(mainTextColor),
+                                                  enabledBorder: OutlineInputBorder(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  10)),
+                                                      borderSide: BorderSide(
+                                                          color: Color(
+                                                              mainButtonColor)))),
+                                            ))),
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    Text("Inches",
+                                        style: TextStyle(
+                                          fontSize: usedHeight / 36,
+                                          color: Color(mainTextColor),
+                                        )),
+                                    SizedBox(height: usedHeight / 130),
+                                    Flexible(
+                                        child: SizedBox(
+                                            height: usedHeight / 14,
+                                            width: usedWidth / 6,
+                                            child: TextField(
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  _hightIN = value;
+                                                });
+                                              },
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              decoration: InputDecoration(
+                                                  filled: true,
+                                                  fillColor:
+                                                      Color(mainTextColor),
+                                                  enabledBorder: OutlineInputBorder(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  10)),
+                                                      borderSide: BorderSide(
+                                                          color: Color(
+                                                              mainButtonColor)))),
+                                            ))),
+                                  ],
+                                ),
+                              ] else ...[
+                                Column(
+                                  children: [
+                                    Text("Hight",
+                                        style: TextStyle(
+                                          fontSize: usedHeight / 36,
+                                          color: Color(mainTextColor),
+                                        )),
+                                    SizedBox(height: usedHeight / 130),
+                                    Flexible(
+                                        child: SizedBox(
+                                            height: usedHeight / 14,
+                                            width: usedWidth / 6,
+                                            child: TextField(
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  _hightCM = value;
+                                                });
+                                              },
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              decoration: InputDecoration(
+                                                  filled: true,
+                                                  fillColor:
+                                                      Color(mainTextColor),
+                                                  enabledBorder: OutlineInputBorder(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                              Radius.circular(
+                                                                  10)),
+                                                      borderSide: BorderSide(
+                                                          color: Color(
+                                                              mainButtonColor)))),
+                                            ))),
+                                  ],
+                                ),
+                              ]
+                            ],
+                          ),
+                        )),
+                    SizedBox(height: usedHeight / 32),
                     Container(
                       height: usedHeight / 5.7,
                       child: Padding(
@@ -408,15 +494,215 @@ class _CaloriesViewState extends State<CaloriesView> {
                                   BorderRadius.all(Radius.circular(10))),
                         ),
                         onPressed: () {
-                          if (_system != null &&
+                          double weight;
+                          double hight;
+                          double bmr;
+
+                          if (_system == "Imperial" &&
                               _gender != null &&
+                              _activity != null &&
                               isNumeric(_age!) &&
                               isNumeric(_weight!) &&
-                              isNumeric(_hight!) &&
-                              _activity != null) {
-                            //calculate
+                              isNumeric(_hightFT!) &&
+                              isNumeric(_hightIN!)) {
+                            weight = double.parse(_weight!) / 2.205;
+                            hight = double.parse(_hightFT!) * 30.48 +
+                                double.parse(_hightIN!) * 2.54;
+
+                            if (_gender == "Male") {
+                              bmr = 10 * weight +
+                                  6.25 * hight -
+                                  5 * double.parse(_age!) +
+                                  5;
+                              if (_activity ==
+                                  "Not Active: little or no exercise") {
+                                bmr = bmr * 1.2;
+                              } else if (_activity ==
+                                  "Light Activity: exercise 1-3 times per week") {
+                                bmr = bmr * 1.375;
+                              } else if (_activity ==
+                                  "Moderate Activity: exercise 4-5 times per week") {
+                                bmr = bmr * 1.55;
+                              } else if (_activity ==
+                                  "Very Active: exercise 6-7 times per week") {
+                                bmr = bmr * 1.725;
+                              } else if (_activity ==
+                                  "extremely Active: very intense exercise daily") {
+                                bmr = bmr * 1.9;
+                              }
+                            } else {
+                              bmr = 10 * weight +
+                                  6.25 * hight -
+                                  5 * double.parse(_age!) -
+                                  161;
+                              if (_activity ==
+                                  "Not Active: little or no exercise") {
+                                bmr = bmr * 1.2;
+                              } else if (_activity ==
+                                  "Light Activity: exercise 1-3 times per week") {
+                                bmr = bmr * 1.375;
+                              } else if (_activity ==
+                                  "Moderate Activity: exercise 4-5 times per week") {
+                                bmr = bmr * 1.55;
+                              } else if (_activity ==
+                                  "Very Active: exercise 6-7 times per week") {
+                                bmr = bmr * 1.725;
+                              } else if (_activity ==
+                                  "extremely Active: very intense exercise daily") {
+                                bmr = bmr * 1.9;
+                              }
+                            }
+
+                            showDialog(
+                              builder: (context) => AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                backgroundColor: Color(backGroundColor),
+                                title: Text(
+                                  "Calorie intake",
+                                  style: TextStyle(
+                                    color: Color(mainTextColor),
+                                  ),
+                                ),
+                                content: RichText(
+                                    text: TextSpan(
+                                  style: TextStyle(
+                                    color: Color(mainTextColor),
+                                  ),
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                        text: "To Maintain Your Weight:\n\n"),
+                                    TextSpan(
+                                        text: bmr.ceil().toString(),
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold)),
+                                    TextSpan(text: " Calories/day"),
+                                  ],
+                                )),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: Text("OK"))
+                                ],
+                              ),
+                              context: context,
+                            );
+                          } else if (_system == "Metric" &&
+                              _gender != null &&
+                              _activity != null &&
+                              isNumeric(_age!) &&
+                              isNumeric(_weight!) &&
+                              isNumeric(_hightCM!)) {
+                            weight = double.parse(_weight!);
+                            hight = double.parse(_hightCM!);
+
+                            if (_gender == "Male") {
+                              bmr = 10 * weight +
+                                  6.25 * hight -
+                                  5 * double.parse(_age!) +
+                                  5;
+                              if (_activity ==
+                                  "Not Active: little or no exercise") {
+                                bmr = bmr * 1.2;
+                              } else if (_activity ==
+                                  "Light Activity: exercise 1-3 times per week") {
+                                bmr = bmr * 1.375;
+                              } else if (_activity ==
+                                  "Moderate Activity: exercise 4-5 times per week") {
+                                bmr = bmr * 1.55;
+                              } else if (_activity ==
+                                  "Very Active: exercise 6-7 times per week") {
+                                bmr = bmr * 1.725;
+                              } else if (_activity ==
+                                  "extremely Active: very intense exercise daily") {
+                                bmr = bmr * 1.9;
+                              }
+                            } else {
+                              bmr = 10 * weight +
+                                  6.25 * hight -
+                                  5 * double.parse(_age!) -
+                                  161;
+                              if (_activity ==
+                                  "Not Active: little or no exercise") {
+                                bmr = bmr * 1.2;
+                              } else if (_activity ==
+                                  "Light Activity: exercise 1-3 times per week") {
+                                bmr = bmr * 1.375;
+                              } else if (_activity ==
+                                  "Moderate Activity: exercise 4-5 times per week") {
+                                bmr = bmr * 1.55;
+                              } else if (_activity ==
+                                  "Very Active: exercise 6-7 times per week") {
+                                bmr = bmr * 1.725;
+                              } else if (_activity ==
+                                  "extremely Active: very intense exercise daily") {
+                                bmr = bmr * 1.9;
+                              }
+                            }
+
+                            showDialog(
+                              builder: (context) => AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                backgroundColor: Color(backGroundColor),
+                                title: Text(
+                                  "Calorie intake",
+                                  style: TextStyle(
+                                    color: Color(mainTextColor),
+                                  ),
+                                ),
+                                content: RichText(
+                                    text: TextSpan(
+                                  style: TextStyle(
+                                    color: Color(mainTextColor),
+                                  ),
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                        text: "To Maintain Your Weight:\n\n"),
+                                    TextSpan(
+                                        text: bmr.ceil().toString(),
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold)),
+                                    TextSpan(text: " Calories/day"),
+                                  ],
+                                )),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: Text("OK"))
+                                ],
+                              ),
+                              context: context,
+                            );
                           } else {
-                            //pop up a massege to fill all the fields
+                            showDialog(
+                              builder: (context) => AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                backgroundColor: Color(backGroundColor),
+                                title: Text(
+                                  "Warning",
+                                  style: TextStyle(
+                                    color: Color(mainTextColor),
+                                  ),
+                                ),
+                                content: Text(
+                                  "FILL ALL INFORMATION",
+                                  style: TextStyle(
+                                    color: Color(mainTextColor),
+                                  ),
+                                ),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: Text("OK"))
+                                ],
+                              ),
+                              context: context,
+                            );
                           }
                         },
                         child: Text(
