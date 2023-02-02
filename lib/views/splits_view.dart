@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:progressive_overload/services/auth_service.dart';
 import 'package:progressive_overload/services/data_service.dart';
+import 'package:progressive_overload/views/main_drawer.dart';
 import 'package:progressive_overload/wrapper.dart';
 
 class SplitsView extends StatelessWidget {
@@ -15,6 +16,7 @@ class SplitsView extends StatelessWidget {
           backgroundColor: const Color(0xff242424),
           shadowColor: const Color(0xff0F0F0F),
         ),
+        endDrawer: const MainDrawer(),
         body: Center(
           child: Container(
             color: Colors.red

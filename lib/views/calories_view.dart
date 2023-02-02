@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:progressive_overload/constents.dart';
+import 'package:progressive_overload/views/main_drawer.dart';
 
 class CaloriesView extends StatefulWidget {
   const CaloriesView({Key? key}) : super(key: key);
@@ -53,6 +54,7 @@ class _CaloriesViewState extends State<CaloriesView> {
     return MaterialApp(
         home: Scaffold(
       appBar: appBar,
+      endDrawer: const MainDrawer(),
       body: Center(
         child: Container(
           color: Color(backGroundColor),
