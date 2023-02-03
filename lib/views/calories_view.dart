@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:progressive_overload/constents.dart';
+import 'package:progressive_overload/views/main_appBar.dart';
 import 'package:progressive_overload/views/main_drawer.dart';
 
 class CaloriesView extends StatefulWidget {
@@ -20,19 +21,6 @@ bool isNumeric(String s) {
 }
 
 class _CaloriesViewState extends State<CaloriesView> {
-  final appBar = AppBar(
-    title: Text(
-      "Calories",
-      style: TextStyle(
-        fontSize: 25,
-        color: Color(mainTextColor),
-      ),
-    ),
-    backgroundColor: Color(backGroundColor),
-    shadowColor: Colors.black,
-    shape: Border(bottom: BorderSide(color: Color(mainButtonColor), width: 1)),
-  );
-
   String? _system;
   String? _gender;
   String? _age;
@@ -45,15 +33,14 @@ class _CaloriesViewState extends State<CaloriesView> {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    final double appBarHeight = appBar.preferredSize.height;
+    final double appBarHeight = 56.0; //kToolbarHeight
     final double statusBarHeight = MediaQuery.of(context).padding.top;
     final double usedHeight =
         screenHeight - (2 * appBarHeight) - statusBarHeight;
     final double usedWidth = MediaQuery.of(context).size.width;
 
-    return MaterialApp(
-        home: Scaffold(
-      appBar: appBar,
+    return Scaffold(
+      appBar: MainAppBar(title: "Calories"),
       endDrawer: const MainDrawer(),
       body: Center(
         child: Container(
@@ -63,7 +50,6 @@ class _CaloriesViewState extends State<CaloriesView> {
                 vertical: (usedHeight / 36), horizontal: 20.0),
             child: Center(
               child: SingleChildScrollView(
-                // physics: BouncingScrollPhysics(),
                 child: Column(
                   children: [
                     Container(
@@ -718,6 +704,6 @@ class _CaloriesViewState extends State<CaloriesView> {
           ),
         ),
       ),
-    ));
+    );
   }
 }

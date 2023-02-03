@@ -29,60 +29,58 @@ class _TestView extends State<TestView> {
   String? password;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text("Splits"),
-          backgroundColor: const Color(0xff242424),
-          shadowColor: const Color(0xff0F0F0F),
-        ),
-        body: Center(
-          child: Column(
-            children: [
-              TextField(
-                onChanged: (value) {
-                  setState(() {
-                    email = value;
-                  });
-                },
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Splits"),
+        backgroundColor: const Color(0xff242424),
+        shadowColor: const Color(0xff0F0F0F),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            TextField(
+              onChanged: (value) {
+                setState(() {
+                  email = value;
+                });
+              },
+            ),
+            TextField(
+              onChanged: (value) {
+                setState(() {
+                  password = value;
+                });
+              },
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                if (await AuthService.signIn(email!, password!)) {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Wrapper(),
+                      ));
+                }
+              },
+              child: Text(
+                'signIn',
               ),
-              TextField(
-                onChanged: (value) {
-                  setState(() {
-                    password = value;
-                  });
-                },
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                if (await AuthService.signUp(email!, password!)) {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Wrapper(),
+                      ));
+                }
+              },
+              child: Text(
+                'signUp',
               ),
-              ElevatedButton(
-                onPressed: () async {
-                  if (await AuthService.signIn(email!, password!)) {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Wrapper(),
-                        ));
-                  }
-                },
-                child: Text(
-                  'signIn',
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  if (await AuthService.signUp(email!, password!)) {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Wrapper(),
-                        ));
-                  }
-                },
-                child: Text(
-                  'signUp',
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

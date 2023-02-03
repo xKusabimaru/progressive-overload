@@ -45,7 +45,7 @@ class _MainViewState extends State<MainView> {
           )),
       body: IndexedStack(
         index: currentIndex,
-        children: [const SplitsView(), CaloriesView()],
+        children: [const SplitsView(), const CaloriesView()],
       ),
     );
   }

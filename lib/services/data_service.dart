@@ -72,45 +72,79 @@ class DataService {
     }).match({'exercise_id': exercise_id});
   }
 
-  static getAllUnhiddenSplits() async {
-    final splits = await supabase
-        .from('Splits')
-        .select('sname, split_id')
-        .match({
-      "user_id": await AuthService.getUserId(),
-      "isHidden": false
-    }).order('split_id', ascending: false);
+  // static getAllUnhiddenSplits() async {
+  //   final splits = await supabase
+  //       .from('Splits')
+  //       .select('sname, split_id')
+  //       .match({
+  //     "user_id": await AuthService.getUserId(),
+  //     "isHidden": false
+  //   }).order('split_id', ascending: false);
 
-    return splits;
+  //   return splits;
+  // }
+
+  // static getAllhiddenSplits() async {
+  //   final splits = await supabase
+  //       .from('Splits')
+  //       .select('sname, split_id')
+  //       .match({
+  //     "user_id": await AuthService.getUserId(),
+  //     "isHidden": true
+  //   }).order('split_id', ascending: false);
+
+  //   return splits;
+  // }
+
+  // static getAllDays(split_id) async {
+  //   final days = await supabase
+  //       .from('Days')
+  //       .select('date, day_id')
+  //       .match({"split_id": split_id}).order('day_id', ascending: false);
+
+  //   return days;
+  // }
+
+  // static getAllExercises(day_id) async {
+  //   final exercises = await supabase
+  //       .from('Exercises')
+  //       .select('ename, weight, note, sets, exercise_id')
+  //       .match({"day_id": day_id}).order('exercise_id', ascending: false);
+
+  //   return exercises;
+  // }
+
+  static Stream<dynamic> getAllUnhiddenSplits() async* {
+    yield* supabase
+        .from('Splits')
+        .stream(primaryKey: ['split_id'])
+        .eq("user_id", await AuthService.getUserId())
+        .order('split_id', ascending: false)
+        .map((maps) => maps.where((elm) => elm['isHidden'] == false).toList());
   }
 
-  static getAllhiddenSplits() async {
-    final splits = await supabase
+  static Stream<dynamic> getAllhiddenSplits() async* {
+    yield* supabase
         .from('Splits')
-        .select('sname, split_id')
-        .match({
-      "user_id": await AuthService.getUserId(),
-      "isHidden": true
-    }).order('split_id', ascending: false);
-
-    return splits;
+        .stream(primaryKey: ['split_id'])
+        .eq("user_id", await AuthService.getUserId())
+        .eq("isHidden", true)
+        .order('split_id', ascending: false);
   }
 
-  static getAllDays(split_id) async {
-    final days = await supabase
+  static Stream<dynamic> getAllDays(split_id) async* {
+    yield* supabase
         .from('Days')
-        .select('date, day_id')
-        .match({"split_id": split_id}).order('day_id', ascending: false);
-
-    return days;
+        .stream(primaryKey: ['day_id'])
+        .eq("split_id", split_id)
+        .order('day_id', ascending: false);
   }
 
-  static getAllExercises(day_id) async {
-    final exercises = await supabase
+  static Stream<dynamic> getAllExercises(day_id) async* {
+    yield* supabase
         .from('Exercises')
-        .select('ename, weight, note, sets, exercise_id')
-        .match({"day_id": day_id}).order('exercise_id', ascending: false);
-
-    return exercises;
+        .stream(primaryKey: ['exercise_id'])
+        .eq("day_id", day_id)
+        .order('exercise_id', ascending: false);
   }
 }

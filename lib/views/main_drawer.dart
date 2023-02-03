@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:progressive_overload/services/auth_service.dart';
+import 'package:progressive_overload/wrapper.dart';
 
 class MainDrawer extends StatelessWidget {
   const MainDrawer({Key? key}) : super(key: key);
@@ -27,6 +29,17 @@ class MainDrawer extends StatelessWidget {
             onTap: () {
               print("t2");
               Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            title: const Text("sign out"),
+            onTap: () async {
+              await AuthService.signOut();
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Wrapper(),
+                  ));
             },
           ),
         ],
