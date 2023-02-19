@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:progressive_overload/views/landing_view.dart';
 import 'package:progressive_overload/views/main_view.dart';
 import 'package:progressive_overload/services/auth_service.dart';
-import 'package:progressive_overload/views/test.dart';
 
 class Wrapper extends StatelessWidget {
   Wrapper({Key? key}) : super(key: key);
@@ -20,7 +19,7 @@ class Wrapper extends StatelessWidget {
           if (snapshot.data == true) {
             return const MainView();
           } else {
-            return const TestView();
+            return const LandingView();
           }
         }
 

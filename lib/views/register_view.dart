@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:progressive_overload/services/auth_service.dart';
-import 'package:progressive_overload/views/register_view.dart';
 import 'package:progressive_overload/wrapper.dart';
 
-class LandingView extends StatefulWidget {
-  const LandingView({Key? key}) : super(key: key);
+class RegisterView extends StatefulWidget {
+  const RegisterView({Key? key}) : super(key: key);
 
   @override
-  State<LandingView> createState() => _LandingViewState();
+  State<RegisterView> createState() => _RegisterViewState();
 }
 
-class _LandingViewState extends State<LandingView> {
+class _RegisterViewState extends State<RegisterView> {
   String? email;
   String? password;
   @override
@@ -40,7 +39,7 @@ class _LandingViewState extends State<LandingView> {
               ),
               SizedBox(height: usedHeight / 50),
               Text(
-                'welcome back',
+                'Register now',
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -117,7 +116,7 @@ class _LandingViewState extends State<LandingView> {
                   child: Center(
                     child: ElevatedButton(
                       onPressed: () async {
-                        if (await AuthService.signIn(email!, password!)) {
+                        if (await AuthService.signUp(email!, password!)) {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
@@ -126,7 +125,7 @@ class _LandingViewState extends State<LandingView> {
                         }
                       },
                       child: Text(
-                        'Sign In',
+                        'Sign Up',
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -140,34 +139,34 @@ class _LandingViewState extends State<LandingView> {
               SizedBox(height: usedHeight / 75),
 
               // register
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Not a member ?',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const RegisterView(),
-                          ));
-                    },
-                    child: Text(
-                      ' Register now',
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  )
-                ],
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     Text(
+              //       'Not a member ?',
+              //       style: TextStyle(
+              //         color: Colors.white,
+              //         fontWeight: FontWeight.bold,
+              //       ),
+              //     ),
+              //     GestureDetector(
+              //       onTap: () {
+              //         Navigator.pushReplacement(
+              //             context,
+              //             MaterialPageRoute(
+              //               builder: (context) => const RegisterView(),
+              //             ));
+              //       },
+              //       child: Text(
+              //         ' Register now',
+              //         style: TextStyle(
+              //           color: Colors.blue,
+              //           fontWeight: FontWeight.bold,
+              //         ),
+              //       ),
+              //     )
+              //   ],
+              // ),
             ],
           ),
         ),
